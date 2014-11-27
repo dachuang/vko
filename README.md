@@ -1,4 +1,0 @@
-vko
-===
-
-init vko
