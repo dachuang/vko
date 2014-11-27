@@ -1,0 +1,30 @@
+<! DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>HTML5 Audio Test</title>
+		<script type="text/javascript">
+			window.onload=function(){
+				// 浏览器支持html5检测
+				try{
+					document.createElement('Canvas').getContext('2d');
+					document.getElementById('support').innerHTML="HTML5 Canvas is supported in your brower.";
+				}catch(e){
+					document.getElementById('support').innerHTML="HTML5 Canvas is not supported in your brower.";
+				}
+				
+				// 浏览器支持性检测
+				var hasVideo = !!(document.createElement('video').canPlayType);
+			}
+			
+		</script>
+	</head>
+	<body>
+		<div id='support'></div>
+		<audio controls src="ljba.mp3">
+			<!-- 在这个位置可以放置一些不支持HTML5 audio标签的替代方案（如：插件、文字、显示地址等） 。 -->
+			<!-- Flash 插件 -->
+			<object
+		</audio>
+	</body>
+</html>

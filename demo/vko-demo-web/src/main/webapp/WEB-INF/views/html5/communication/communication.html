@@ -1,0 +1,104 @@
+<! DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>HTML5 Communication Test</title>
+		<script type="text/javascript">
+			
+			// 浏览器支持性检查(postMessage)
+			function supportPostMessage(){
+				if(typeof window.postMessge == undefined){
+					// 该浏览器不支持postMessage
+					document.getElementById('support').innerHTML+='HTML5 Communication postMessage is not supported.';
+				}else{
+					document.getElementById('support').innerHTML+='HTML5 Communication postMessage is supported.';
+				}
+			}
+			
+			// 浏览器支持性检查(XMLHttpRequest)
+			function supportXMLHttpRequest(){
+				var xhr = new XMLHttpRequest();
+				if(typeof xhr.withCredentials == undefined){
+					// 该浏览器不支持跨源XMLHttpRequest
+					document.getElementById('support').innerHTML+='Your browser <strong>does not</strong> support cross-origin XMLHttpRequest.';
+				}else{
+					document.getElementById('support').innerHTML+='Your browser <strong>does</strong> support cross-origin XMLHttpRequest.';
+				}
+			}
+			
+			// 跨源的XMLHttpRequest
+			function crossOriginXMLHttpRequest(){
+				var crossOriginRequest = new XMLHttpRequest();
+				crossOriginRequest.open('GET', 'http//www.baidu.com', true);
+				crossOriginRequest.onprogress=function(e){
+					var total = e.total; //数据总量
+					var loaded = e.loaded; //已下载量
+					
+					if(e.lengthComputable){
+						// 利用进度信息做些事情
+					}
+				}
+				
+				corssOriginRequest.upload.onprogress = function(e){
+					var total = e.total;
+					var loaded = e.loaded;
+					
+					if(e.lengthComputable){
+						// 利用进度信息做些事情
+					}
+				}
+			}
+			
+			/* 
+			//postMessage方式发送一条消息
+			window.postMessage('hello,world', 'http:/tiku.vko.cn/m/tl/');
+			// 接收页面，进行消息监听
+			window.addEventListener('messge', messageHandler,true);
+			function messageHandler(e){
+				switch(e.origin){
+				case "friend.example.com":
+					//处理消息
+					processMessage(e.data);
+					break;
+				default:
+					//消息来源无法识别
+					//消息被处理
+				}
+			} */
+			
+			var originWhiteList=["tiku.vko.cn", "q.vko.cn", "www.vko.cn"];
+			
+			// 校验白名单
+			function checkWhiteList(origin){
+				for(var i=0; i<originWhiteList.lenght; i++){
+					if(origin == originWhiteList[i]){
+						return true;
+					}
+				}
+				return false;
+			}
+			
+			// 消息监听函数
+			function messageHandler(e){
+				if(checkWhiteList(e.origin)){
+					// 处理消息
+					processMessage(e.data);
+				}else{
+					// 忽略来自未知的消息
+				}
+			}
+			
+			// 监听消息事件
+			window.addEventListener('mesage',messageHandler, true);
+			
+			window.addEventListener('load', function (){
+				
+				supportPostMessage();
+				supportXMLHttpRequest();
+			})
+		</script>
+	</head>
+	<body>
+		<div id='support'></div>
+	</body>
+</html>

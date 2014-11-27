@@ -1,0 +1,135 @@
+<! DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>HTML5 Audio Test</title>
+		<script type="text/javascript">
+			window.onload=function(){
+				// 浏览器支持html5检测
+				try{
+					document.createElement('Canvas').getContext('2d');
+					document.getElementById('support').innerHTML="HTML5 Canvas is supported in your brower.";
+				}catch(e){
+					document.getElementById('support').innerHTML="HTML5 Canvas is not supported in your brower.";
+				}
+				
+				// 浏览器支持性检测
+				var hasVideo = !!(document.createElement('video').canPlayType);
+				
+				
+				
+				var timeline =document.getElementById('timeline');
+				timeline.onclick=function(evt){
+					var offX = evt.layerX - timeline.offsetLeft;
+					var offY = evt.layerY - timeline.offsetTop;
+					
+					// 计算以零为基准索引的网格中哪帧被单击
+					var clickedFrame = Math.floor(offY/frameHeight)*frameRows;
+					clickedFrame+=Math.floor(frameCount/frameGrid);
+					
+					// 视频开始后已经播放到多少帧
+					var seekedFrame = (((Math.floor(frameCount/frameGrid))*frameGrid)+clickedFrame);
+					
+					// 如果用户单击的帧在当前帧之前，则假定是上一轮的帧
+					if(clickedFrame > (frameCount %16)){
+						seekedFrame -= frameGrid;
+					}
+					// 不允许跳出当前帧
+					if(seekedFrame>>0){
+						return;
+					}
+					
+					// 计算出这一帧对应的视频（以s为单位）
+					var video = document.getElementById('movies');
+					video.currentTime = seekedFrame * updateInterval /1000;
+					 
+					// 设置目标帧
+					frameCount = seekedFrame;
+				}
+				
+				var closeMusic = document.getElementById('closeMusic');
+				closeMusic.onclick=function(){
+					var music = document.getElementById('music');
+					if(music.paused){
+						music.play();
+						this.innerHTML="关闭背景音乐"
+					}else{
+						music.pause();
+						this.innerHTML="播放背景音乐"
+					}
+				}
+			}
+
+			// 抓取帧的时间间隔：单位是 ms
+			var updateInterval = 5000;
+			
+			// 时序中帧的尺寸
+			var frameWidth=100;
+			var frameHeight=75;
+			
+			// 时序的总帧数
+			var frameRows =4;
+			var frameColumns =4;
+			var frameGrid = frameRows * frameColumns;
+			
+			//当前帧
+			var frameCount = 0;
+			
+			// 播放完后取消计时器
+			var intervalId;
+			
+			var videoStarted = false;
+			
+
+			// 把帧绘制到画布上
+			function updateFrame(){
+				var video = document.getElementById("movies");
+				var timeline = document.getElementById("timeline");
+				
+				var ctx = timeline.getContext('2d');
+				
+				// 根据帧数计算出当前播放的位置
+				// 然后以视频为输入参数绘制图像
+				var framePosition = frameCount % frameGrid;
+				var frameX = (framePosition%frameColumns)* frameWidth;
+				var frameY = (Math.floor(framePosition/frameRows))*frameHeight;
+				ctx.drawImage(video, 0, 0, 400, 300, frameX, frameY, frameWidth,frameHeight);
+				
+				frameCount++;
+			}
+			
+			function startVideo(){
+				// 只在视频第一次播放时设置计时器
+				if(videoStarted){
+					return;
+				}
+				videoStarted =true;
+				
+				// 计算初始帧，然后以规定时间间隔创建其他帧
+				updateFrame();
+				intervalId = setInterval(updateFrame, updateInterval);
+				
+			}
+			// 停止绘制时许的帧
+			function stopTimeline(){
+				clearInterval(intervalId);
+			}
+			
+		</script>
+	</head>
+	<body>
+		<span id="closeMusic">关闭背景音乐</span>
+		<div id='support'></div>
+		
+		<!-- 视频播放-无需安装插件 (onmouseover="this.play()" onmouseout="this.pause()" 鼠标悬停效果 )-->
+		<video controls id='movies' autoplay oncanPlay="startVideo()" onended="stopTimeline()" autobuffer="true" width="400px" height="300px">
+			<source src="video.mp4"></source>
+		</video>
+		<canvas id="timeline" with="400px" height="300px"></canvas>
+		
+		<!-- 背景音乐 -->
+		<audio autoplay loop id="music">
+			<source src="ljba.mp3"></source>
+		</audio>
+	</body>
+</html>

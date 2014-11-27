@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.vko.demo.dao.mapper.TestMapper">
+	<select id="selectInfo" resultType="test">
+		select id,name from test where id=#{id}
+	</select>
+	
+	<insert id="insertTestList" parameterType="java.util.List" useGeneratedKeys="true">
+		insert into test(name, ss) 
+		<!-- 方法参数传的是一个集合，mabatis默认转成Map,key是list;数组默认key是array;hashMap默认key是map;此值会在下面使用 -->
+		values
+		<foreach collection="list" item="it" separator="," index="i">
+			(#{it.name}, #{it.ss})
+		</foreach> 
+	</insert>
+	
+	<insert id="insert" parameterType="cn.vko.demo.entity.Test" useGeneratedKeys="true" keyProperty="id">
+		insert into test(name, ss) 
+			values(#{name}, #{ss})
+	</insert>
+	
+</mapper>

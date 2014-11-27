@@ -1,0 +1,247 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>cn.vko</groupId>
+  <artifactId>vko-demo-parent</artifactId>
+  <version>1.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>vko-demo-parent</name>
+  <description>基础配置</description>
+  
+  <!-- 常量设置 -->
+  <properties>
+  	<!-- 自定义标签 -->
+  	<!-- 
+  		<jdk.version>1.6</jdk.version>
+		<sourceEncoding>UTF-8</sourceEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<org.springframework.version>3.1.2.RELEASE</org.springframework.version>
+		<mybatis.version>3.2.5</mybatis.version>
+		<mybatis.spring.version>1.2.0</mybatis.spring.version>
+		<quartz.version>1.6.5</quartz.version>
+		<mysql.version>5.1.10</mysql.version>
+		<druid.version>1.0.0</druid.version>
+	 -->
+  	<jdk.version>1.6</jdk.version>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  	<org.springframework.version>3.1.2.RELEASE</org.springframework.version>
+  	<mysql.version>5.1.10</mysql.version>
+	<druid.version>1.0.4</druid.version>
+	<mybatis.version>3.2.5</mybatis.version>
+	<mybatis.spring.version>1.2.0</mybatis.spring.version>
+	<slf4j-api.version>1.7.6</slf4j-api.version>
+	<logback.version>1.1.2</logback.version>
+	<velocity.version>1.7</velocity.version>
+	<velocity.tools.version>2.0</velocity.tools.version>
+  </properties>
+  
+  <!-- 通用的依赖包声明 -->
+  <dependencyManagement>
+  	<dependencies>
+  		<!-- 根据GAV声明需要的jar -->
+  		
+  		<!-- 日志 -->
+  		<dependency>
+		  <groupId>org.slf4j</groupId>
+		  <artifactId>slf4j-api</artifactId>
+		  <version>${slf4j-api.version}</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>ch.qos.logback</groupId>
+		  <artifactId>logback-core</artifactId>
+		  <version>${logback.version}</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>ch.qos.logback</groupId>
+		  <artifactId>logback-classic</artifactId>
+		  <version>${logback.version}</version>
+		</dependency>
+  		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- springMVC -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		
+		<!-- mysql -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>${druid.version}</version>
+		</dependency>
+		
+		<!-- mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+
+
+		<!-- mybatis-spring -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${mybatis.spring.version}</version>
+		</dependency>
+		
+		<!-- spring jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		
+		<!-- Velocity -->
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>${velocity.version}</version>
+		</dependency>
+		
+		<!-- Velocity Tools-->
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity-tools</artifactId>
+			<version>${velocity.tools.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>dom4j</artifactId>
+					<groupId>dom4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>struts-core</artifactId>
+					<groupId>org.apache.struts</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>struts-tiles</artifactId>
+					<groupId>org.apache.struts</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>struts-taglib</artifactId>
+					<groupId>org.apache.struts</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+  	</dependencies>
+  </dependencyManagement>
+  
+  <!-- 子模块会默认继承的公用jar包 -->
+  <dependencies>
+  	
+  	<!-- 日志 -->
+  	<dependency>
+	  <groupId>org.slf4j</groupId>
+	  <artifactId>slf4j-api</artifactId>
+	</dependency>
+	
+	<dependency>
+	  <groupId>ch.qos.logback</groupId>
+	  <artifactId>logback-core</artifactId>
+	</dependency>
+	
+	<dependency>
+	  <groupId>ch.qos.logback</groupId>
+	  <artifactId>logback-classic</artifactId>
+	</dependency>
+  
+  	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<!-- version会默认引用dependencyManagement中声明的junit版本号（即：4.10） -->
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-webmvc</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context-support</artifactId>
+	</dependency>
+	
+	<dependency>
+	  <groupId>org.springframework</groupId>
+	  <artifactId>spring-jdbc</artifactId>
+	</dependency>
+	<dependency>
+	  <groupId>org.aspectj</groupId>
+	  <artifactId>aspectjweaver</artifactId>
+	  <version>1.8.1</version>
+	</dependency>
+	<dependency>
+	  <groupId>com.alibaba</groupId>
+	  <artifactId>druid</artifactId>
+	</dependency>
+	
+	<!-- mybatis -->
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis</artifactId>
+	</dependency>
+
+
+	<!-- mybatis-spring -->
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis-spring</artifactId>
+	</dependency>
+	
+	<dependency>
+	  <groupId>mysql</groupId>
+	  <artifactId>mysql-connector-java</artifactId>
+	</dependency>
+  </dependencies>
+  
+  <!-- 项目jar分发至远程仓库配置 -->
+  <distributionManagement>
+	<repository>
+		<id>releases</id>
+		<name>Internal Releases</name>
+		<url>http://192.168.1.5:8081/nexus/content/repositories/releases</url>
+	</repository>
+	<snapshotRepository>
+		<id>snapshots</id>
+		<name>Nexus Snapshot Repository</name>
+		<url>http://192.168.1.5:8081/nexus/content/repositories/snapshots</url>
+	</snapshotRepository>
+  </distributionManagement>
+  
+  <!-- 子模块build管理 -->
+  <modules>
+  	<!-- <module>子模块的artifactId</module> -->
+  	<module>vko-demo-dao</module>
+  	<module>vko-demo-biz</module>
+  	<module>vko-demo-web</module>
+  	<module>vko-demo-entity</module>
+  	<module>vko-demo-util</module>
+  	<module>vko-demo-interview-questions</module>
+  </modules>
+</project>

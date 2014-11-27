@@ -1,0 +1,113 @@
+<! DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>HTML5 forms register</title>
+		<script type="text/javascript">
+			window.addEventListener('load', load,true);
+			
+			function load(){
+				// 在表单上注册事件处理函数，以处理所有未通过验证的控件通知
+				document.register.addEventListener('invalid', invalidHandler, true);
+			}
+			
+			function setConfidence(newVal){
+				document.getElementById('confidenceDisplay').innerHTML=newVal + "%";
+			}
+			
+			function invalidHandler(evt){
+				// 获取表单控件对应的label标签
+				var label = evt.srcElement.parentElement.getElementsByTagName('label')[0];
+				
+				// 将label标签的文本设置为红色
+				label.style.color='red';
+				
+				// 组织事件冒泡
+				evt.stopPropagation();
+				
+				// 停止浏览器默认的验证处理函数
+				evt.preventDefault();
+			}
+			
+			function checkPasswords(){
+				var pass = document.getElementById('password');
+				var confirm = document.getElementById("confirm");
+				
+				if(pass.value != confirm.value){
+					pass.setCustomValidity("Your passwords do not match.");
+				}else{
+					pass.setCustomValidity("");
+				}
+			}
+			
+		</script>
+	</head>
+	<body>
+		<form name="register">
+			<p>
+				<label for="runnernmae">Runner:</label>
+				<input id="runnername" name="runnername" type="text" placeholder"First and las name" required />
+			</p>
+			<p>
+				<label for="password">Password:</label>
+				<input id="password" name="password" type="password" placeholder="password" onchange="checkPasswords()" />
+			</p>
+			<p>
+				<label for="confirm">Confirm passwordd:</label>
+				<input id="confirm" name="confirm" type="password" placeholder="confirm password" onchange="checkPasswords()" />
+			</p>
+			<p>
+				<label for="phone">Tel #:</label>
+				<input id="phone" name="phone" type="tel" placeholder="(xxx) xxx-xxx" />
+			</p>
+			<p>
+				<label for="emailaddress">E-mail:</label>
+				<input id="emailaddress" name="emailaddress" type="email" placeholder="For confirmation only" />
+			</p>
+			<p>
+				<label for="dob">DOB:</label>
+				<input id="dob" name="dob" type="date" placeholder="YYYY/MM/DD" />
+			</p>
+			<fieldset>
+				<legend>T-shirt Size:</legend>
+				<p>
+					<input id="small" type="redio" name="tshirt" value="small" />
+					<label for="small">Small</label>
+				</p>
+				<p>
+					<input id="medium" type="radio" name="tshirt" vlaue="medium" />
+					<label for="medium">Medium</label>
+				</p>
+				<p>
+					<input id="large" type="radio" name="tshirt" value="large" />
+					<label for="large">Large</label>
+				</p>
+				<p>
+					<label for="style"Shirt style:</label>
+					<input id="style" name="style" type="text" list="stylelist" title="Years of participation" />
+				</p>
+				<datalist id="stylelist">
+					<option value="White" label="1st Year" />
+					<option value="Gray" label="2nd - 4th Year" />
+					<option value="Navy" label="Veteran (5+ Years)" />
+				</datalist>
+			</fieldset>
+			
+			<fieldset>
+				<legend>Expectations:</legend>
+				<p>
+					<label for="confidence">Confidence:</label>
+					<input id="confidence" name="level" type="range" onchange="setConfidence(this.value)" min="0" max="100" step="5" vlaue="0" />
+					<span id="confidenceDisplay">0%</span>
+				</p>
+				<p>
+					<label for="notes">Notes:</label>
+					<texteara id="notes" name="notes" maxLength="140"></texteara>
+				</p>
+			</fieldset>
+			<p>
+				<input type="submit" name="register" value="Register" />
+			</p>
+		</form>
+	</body>
+</html>

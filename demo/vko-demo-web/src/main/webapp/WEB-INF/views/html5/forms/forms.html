@@ -1,0 +1,78 @@
+<! DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>HTML5 forms Test</title>
+		<script type="text/javascript">
+			window.addEventListener('load', load,true);
+			
+			function load(){
+				var valCheck = document.myForm.loginName.validity;
+				var result = valCheck.valid;
+				result = valCheck.valueMissing;
+				// 有错返回true表示验证未通过
+				alert(result);
+				
+				var myField = document.getElementById('password');
+				myField.addEventListener('invalid', invalidHandler, true);
+			}
+			
+			function showValue(value){
+				document.getElementById('ageDisplay').innerHTML=value;
+			}
+			
+			// invalid 事件的处理函数
+			function invalidHandler(evt){
+				var validity = evt.srcElement.validity;
+				
+				// 检测有效性， 看是否某个特定的验证条件没有通过
+				if(!validity.valueMessing){
+					// 提示用户必填项中没有填值
+					alert('此项为必填');
+				}
+				
+				// 可能检测更多的约束条件.....
+				
+				// 如果不希望浏览器提供默认的验证反馈，按照下面的方式取消事件
+				evt.preventDefault();
+			}
+			
+		</script>
+	</head>
+	<body>
+		<form name="myForm" action="http://www.baidu.com" method="post">
+		
+			<p>新的输入控件、函数与特性</p>
+			<span>新的type：email</span><input type="email" placeholder="请输入您的邮箱" antocomplete="off" autofocus /><br />
+			<span>新的type：color</span><input type="color" /><br />
+			<span>新的type：number</span>
+				<input type="number" placeholder="请输入您的手机号" step="5" /><br />
+			<span>新的type：url</span><input type="url" placeholder="请输入URL地址" /><br />
+			<span>新的type：datetime</span><input type="datetime" /><br />
+			<span>新的type：datetime-local</span><input type="datetime-local" /><br />
+			<span>新的type：time</span><input type="time" /><br />
+			<span>新的type：date</span><input type="date" /><br />
+			<span>新的type：week</span><input type="week" /><br />
+			<span>新的type：month</span><input type="month" /><br />
+			<span>新的type：range[Age]</span>
+				<input type="range" min="18" max="120" step="2" value="18" onchange="showValue(this.value)" />
+			<span id="ageDisplay">18</span><br />
+			
+			<datalist id="contactlist">
+				<option value="778732616@qq.com" label="chuang">
+				<option value="996022662@qq.com" label="daya">
+			</datalist>
+			
+			<label>Contact:</label>
+				<input type="email" id="contacts" list="contactlist" /><br />
+			<lable>百度一下</lable><input type="text" placeholder="请输入你想搜索的内容" /><br />
+			
+			<label>loginName:</label>
+				<input type="text" name="loginName" value="ychuang328" placeholder="请输入用户名(必填)" required /><br />
+			<label>password:</label>
+				<input type="text" id="password" name="password" placeholder="请输入用户密码(必填)" required />
+			<button type="submit" formnovalidate name="save">Save current process</button>
+			<button type="submit">Submit</button>
+		</form>
+	</body>
+</html>

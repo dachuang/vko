@@ -1,0 +1,74 @@
+<! DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>HTML5 Geolocation Test</title>
+		<script type="text/javascript">
+			function loadTest(){
+				// 浏览器支持html5检测
+				if(navigator.geolocation){
+					document.getElementById('support').innerHTML="HTML5 Geolocation is supported in your brower.";
+				}else{
+					document.getElementById('support').innerHTML="HTML5 Geolocation is not supported in your brower.";
+				}
+			}
+			window.onload=function(){
+				loadTest();
+				
+				getMyLocation();
+			}
+			
+			function getMyLocation(){
+				
+				//void getCurrentPosition(in PositionCallback successCallback, in optional PositionErrorCallback eerorCallback, in optional PositionOptions options);
+				navigator.geolocation.getCurrentPosition(updateLocation, handleLocationError,{timeout:10000});
+				var watchId = navigator.geolocation.watchPosition(updateLocation,handleLocationError);
+				// 基于持续更新的位置信息实现一些功能
+				
+				// ......
+				
+				// OK,现在我们可以停止接收位置更新信息了
+				navigator.geolocation.clearWatch(watchId);
+			}
+			
+			// 成功获取用户位置后的处理方式
+			function updateLocation(position){
+				var latitude = position.coords.latitude;
+				var longitude = position.coords.longitude;
+				var accuracy = position.coords.accuracy;
+				
+				document.getElementById("latitude").innerHTML=latitude;
+				document.getElementById("longitude").innerHTML=longitude;
+				document.getElementById("accuracy").innerHTML="This location is accurate within "+accuracy+" meters.";
+			}
+			
+			// 获取用户位置失败后的处理方式
+			function handleLocationError(error){
+				switch(error.code){
+				case 0:
+					updateStatus("There was an error while retrieving you location"+error.message);
+					break;
+				case 1:
+					updateStatus("The user prevented this page from retrieving a location.");
+					break;
+				case 2:
+					updateStatus("The browser was unable to determine your location:"+error.message);
+					break;
+				case 3:
+					updateStatus("Thre browser timed out before retrieving the location.");
+					break;
+				}
+			}
+			
+			function updateStatus(msg){
+				alert(msg);
+			}
+		</script>
+	</head>
+	<body>
+		<div id='support'></div>
+		<div id='latitude'></div>
+		<div id='longitude'></div>
+		<div id='accuracy'></div>
+	</body>
+</html>

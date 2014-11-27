@@ -1,0 +1,83 @@
+<! DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>HTML5 Communication Test</title>
+		<script type="text/javascript">
+			
+			// 浏览器支持性检查(XMLHttpRequest)
+			function supportXMLHttpRequest(){
+				var xhr = new XMLHttpRequest();
+				if(typeof xhr.withCredentials == undefined){
+					// 该浏览器不支持跨源XMLHttpRequest
+					document.getElementById('support').innerHTML+='Your browser <strong>does not</strong> support cross-origin XMLHttpRequest.';
+				}else{
+					document.getElementById('support').innerHTML+='Your browser <strong>does</strong> support cross-origin XMLHttpRequest.';
+				}
+			}
+			
+			// 跨源的XMLHttpRequest
+			function crossOriginRequest(){
+				var dataElement = document.getElementById("geodata");
+				dataElement.textContent = JSON.stringify(geoData).replace(",", ", ", "g");
+				
+				var crossOriginRequest = new XMLHttpRequest();
+				var targetLocation = "http://geodata.example.net:9999/uplaod";
+
+				crossOriginRequest.onprogress=function(e){
+					var total = e.total; //数据总量
+					var loaded = e.loaded; //已下载量
+					var ratio = loaded/total;
+					setProgress(ratio+"% uploaded.")
+				}
+				
+				crossOriginRequest.upload.onprogress = function(e){
+					var ratio = e.loaded/e.total;
+					setProgress(ratio+"% downloaded.")
+				}
+				
+				crossOriginRequest.onload = function (e){
+					setProgress("finished");
+				}
+				
+				crossOriginRequest.onerror = function(e){
+					setProgress("error");
+				}
+				
+				crossOriginRequest.open('POST', targetLocation, true);
+				
+				var geoDataString = dataElement.textContent;
+				crossOriginRequest.send(geoDataString);
+			}
+			
+			function setProgress(s){
+				document.getElementById('progress').innerHTML=s;
+			}
+			
+			function load(){
+				supportXMLHttpRequest();
+				
+				document.getElementById('sendButton').addEventListener('click', crossOriginRequest, true);
+			}
+			
+			window.addEventListener('load', load)
+		</script>
+	</head>
+	<body>
+		<h1>XMLHttpRequest</h1>
+		<p id='support'></p>
+		
+		<h4>Geoloaction Data to upload:</h4>
+		<textarea id="geodata"></textarea>
+		<button id="sendButton">Upload</button>
+		
+		<script>
+			geoData=[[39.23939, 39.93420, 39.9320, 39.9302, 38.9323, 38.998302, 38.89032, 38.89832],
+			         [-120.23902,-120.49320,-120.893402, -120.392, -120.849032, -120.8832, -120.38920,-120.983402]];
+		</script>
+		
+		<p>
+			<b>Status:</b><span id="progress">ready</span>
+		</p>
+	</body>
+</html>

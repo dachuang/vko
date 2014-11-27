@@ -1,0 +1,53 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>HTML5 Web Workers Test</title>
+		<script type="text/javascript">
+			function load(){
+				// 浏览器支持性检查
+				if(typeof(Worker) != 'undefined'){
+					document.getElementById('support').innerHTML="Excellent! your browser supported HTML5 Web Workers."	;
+					
+					worker = new Worker("echoWorker.js");
+					
+					worker.addEventListener("message", messageHandler, true);
+					worker.addEventListener("error", errorHandler,true);
+					
+					document.getElementById('helloButton').onclick=function(){
+						worker.postMessage("Here's a message for you");
+					}
+					document.getElementById('stopButton').onclick=function(){
+						stopWorder(worker);
+					}
+				}
+			}
+			
+			function messageHandler(e){
+				// 处理worker发来的消息
+				// worker.posetMessage("worker says: "+e.data +"too");
+				console.log(e);
+			}
+			
+			function errorHandler(e){
+				console.warn(e.message, e);
+			}
+			
+			function stopWorker(worker){
+				if(worker){
+					worker.terminate();
+				}
+			}
+			
+			window.addEventListener('load', load,true);
+			
+		</script>
+	</head>
+	
+	<body>
+		<h1>Simple HTML5 Web Workers Example</h1>
+		<p id="support">Your browser does not support HTML5 Web Workers.</p>
+		
+		<button id="stopButton">Stop Task</button>
+		<button id="helloButton">Post a Message</button>
+	</body>
+</html>

@@ -1,0 +1,4 @@
+##默认值处理宏
+#macro (ifn $obj $def)
+#if($obj)$obj#else$def#end
+#end

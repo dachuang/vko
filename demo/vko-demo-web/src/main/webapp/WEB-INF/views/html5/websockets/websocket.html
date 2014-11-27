@@ -1,0 +1,57 @@
+<! DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>HTML5 WebSockets Test</title>
+		<script type="text/javascript">
+			function supportWebSockets(){
+				// 浏览器支持html5检测
+				if(window.WebSocket){
+					document.getElementById('support').innerHTML="HTML5 WebSockets is supported in your brower.";
+				}else{
+					document.getElementById('support').innerHTML="HTML5 WebSockets is not supported in your brower.";
+				}
+			}
+			
+			function log(s){
+				if(document.readyState != "complete"){
+					log.buffer.push(s);
+				}else{
+					document.getElementById('output').innerHTML+=(s+"\n");
+				}
+			}
+			
+			function load(){
+				supportWebSockets();
+
+				log = [];
+				
+				var url = "ws://localhost:8080/echo";
+				w = new WebSocket(url);
+				
+				w.onopen=function(){
+					log("open");
+					w.send("thank you for accepting this websocket request.");
+				}
+				
+				w.onmessage=function(e){
+					log(e.data);
+				}
+				
+				w.onclose=function(e){
+					log("close");
+				}
+
+				document.getElementById("sendButton").onclick = function (){
+					w.send(document.getElementById('inputMessage').value);
+				}
+			}
+			
+			window.addEventListener('load', load, true);
+		</script>
+	</head>
+	<body>
+		<h1>HTML5 WebSocket / Geolocation Tracker</h1>
+		<div><strong>Geolocation</strong></div>
+	</body>
+</html>

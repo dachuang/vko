@@ -1,0 +1,129 @@
+<! DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>HTML5 WebSockets / Geolocation Tracker</title>
+		<script type="text/javascript">
+			function supportWebSockets(){
+				// 浏览器支持html5检测
+				if(window.WebSocket){
+					document.getElementById('support').innerHTML="HTML5 WebSockets is supported in your brower.";
+				}else{
+					document.getElementById('support').innerHTML="HTML5 WebSockets is not supported in your brower.";
+				}
+			}
+			
+			function load(){
+				//WebSocket的引用
+				var socket;
+				
+				//未改会话生成唯一的随机 ID
+				var myId = Math.floor(100000*Math.random());
+				
+				// 当前显示的行数
+				var rowCount = 0;
+				
+				// 进行测试，确保浏览器支持socket
+				if(window.WebSocket){
+					// broadcase WebSocket 服务器的位置
+					url = "ws://localhost:8080";
+					socket = new WebSocket(url);
+					socket.onopen=function(){
+						updateSocketStatus("Connected to WebSocket  tracker server.");
+					}
+					socket.onmessage=function(){
+						updateScoketStatus("Updated location from "+dataReturned(e.data));
+					}
+				}
+				
+
+				var geolocation;
+				if(navigator.geolocation){
+					geolocation = navigator.geolocation;
+					updateGeolocationStatus("HTML5 Geolocation i supported in your browser.");
+				}
+				
+				// 使用Geolocation API注册位置更新处理函数
+				geolocation.watchPosition(updateLocation, handlerLocationError,{maximumAge:20000});
+			}
+			
+			function updateSocketStatus(message){
+				document.getElementById('socketStatus').innerHTML=message;
+			}
+			
+			function updateGeolocationStatus(message){
+				document.getElementById('geoStatus').innerHTML=message;
+			}
+			
+			function handlerLocationError(error){
+				switch(error.code){
+				case 0:
+					updateGeolocationStatus("There was an error while retrieving your location: "+error.message);
+					break;
+				case 1:
+					updateGeolocationStatus("The user prevented this page  from  retriving a location.");
+					break;
+				case 2:
+					updateGeolocationStatus("The browser was unable to determine your location: "+error.message);
+					break;
+				case 3:
+					udpateGeolocationStatus("The brwoser timed out before retriving the locatin: "+error.message);
+					break;
+				}
+			}
+			
+			function updateLocation(position){
+				var latitue = position.coords.latitue;
+				var longitude = position.coords.longitude;
+				var timestamp = position.timestamp;
+				
+				udpateGeolocationStatus("Location upated at "+timestamp);
+				
+				// 通过WebSocket发送我的位置
+				var toSend = JSON.stringify([myId, latitue, longitude]);
+				sendMyLocation(toSend);
+			}
+			
+			function SendMyLocation(newLocation){
+				if(socket){
+					socket.send(newLocation);
+				}
+			}
+			
+			function dataReturned(locationData){
+				// 从数据中拆分出ID、经度和纬度
+				var allData = JSON.parse(locationData);
+				var incomingId = allData[1];
+				var incomingLat = allData[2];
+				var incomingLong = allData[3];
+				
+				// 根据Id定位到HTML元素
+				// 如果不存在，就创建
+				var incomingRow = document.getElementById(incomingId);
+				if(!incomingRow){
+					incomingRow = document.createElement('div');
+					incomingRow.setAttribute('id', incomingId);
+					
+					incomingRow.userText(incomingId == myId)?'Me':'User '+rwoCount;
+					
+					rowCount++;
+					document.body.appendChild(incomingRow);
+				}
+				
+				// 使用新的值更新对应行的文本
+				incomingRow.innerHTML = incomingRow.userText = " \\Lat: "+incomingLat+" \\Lon: "+incomingLong;
+				
+				return incomingRow.userText;
+			}
+			
+			window.addEventListener('load', load, true);
+		</script>
+	</head>
+	<body>
+		<h1>HTML5 WebSockets / Geolocation Tracker</h1>
+		
+		<div><strong>Gelocation</strong>: <p id="geoStatus">HTML5 Geolocation is <strong>not</strong> supported in your browser.</p></div>
+		<div><strong>WebSocket</strong>: <p id="socketStatus">WebSocket are <strong>not</strong> supported in your browser.</p></div>
+		
+	</body>
+</html>

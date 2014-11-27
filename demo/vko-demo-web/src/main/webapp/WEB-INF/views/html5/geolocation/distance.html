@@ -1,0 +1,104 @@
+<! DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>HTML5 Geolocation Distance Tracker</title>
+		<script type="text/javascript" src="haversine.js"></script>
+		<script type="text/javascript">
+			var totalDistance = 0.0;
+			var lastLat, lastLong;
+			
+			function updateStatus(message){
+				document.getElementById('status').innerHTML=message;
+			}
+			
+			function loadDemo(){
+				if(navigator.geolocation){
+					updateStatus("HTML5 Geolocation is supported in your browser.");
+					navigator.geolocation.watchPosition(updateLocation, handleLocationError,{maximumAge:20000});
+				}
+			}
+			
+			// 获取用户位置失败后的处理方式
+			function handleLocationError(error){
+				switch(error.code){
+				case 0:
+					updateStatus("There was an error while retrieving you location"+error.message);
+					break;
+				case 1:
+					updateStatus("The user prevented this page from retrieving a location.");
+					break;
+				case 2:
+					updateStatus("The browser was unable to determine your location:"+error.message);
+					break;
+				case 3:
+					updateStatus("Thre browser timed out before retrieving the location.");
+					break;
+				}
+			}
+			
+			// 成功获取用户位置后的处理方式
+			function updateLocation(position){
+				var latitude = position.coords.latitude;
+				var longitude = position.coords.longitude;
+				var accuracy = position.coords.accuracy;
+				var timestamp = position.timestamp;
+
+				document.getElementById("latitude").innerHTML=latitude;
+				document.getElementById("longitude").innerHTML=longitude;
+				document.getElementById("accuracy").innerHTML="This location is accurate within "+accuracy+" meters.";
+				document.getElementById("timestamp").innerHTML=timestamp;
+				
+				// 合理性检测..... 如果accuracy值太大，就不要计算距离
+				if(accuracy>=500){
+					updateStatus("Need more accurate values to calculate distance.");
+					return;
+				}
+				
+				// 计算距离
+				
+				if((lastLat != null) && (lastLong != null) ){
+					var currentDistance = distance(latitude,longitude, lastLat, lastLong);
+					document.getElementById("currentDist").innerHTML="Current distance traveled:"+currentDistance.toFixed(4)+" km";
+					totalDistance +=currentDistance;
+					
+					document.getElementById("totalDist").innerTHML="Total distance traveled:"+totalDistance.toFixed(4)+" km";
+				}
+				
+				lastLat = latitude;
+				lastLong = longitude;
+				
+				updateStatus("Location successfully udated.");
+				
+			}
+			
+			window.addEventListener("load", loadDemo, true);
+		</script>
+	</head>
+	<body>
+		<h1>HTML5 Geolocation Distance Tracker</h1>
+		<p id="status">HTML5 Geolocation is <strong>not</strong> supported in your  browser.</p>
+		<h2>Current Position:</h2>
+		<table border="1">
+			<tr>
+				<th width="40" scope="col">Latitude</th>
+				<th width="114" id="latitude">?</th>
+			</tr>
+			<tr>
+				<th>Longitude</th>
+				<th id="longitude">?</th>
+			</tr>
+			<tr>
+				<th>Accuracy</th>
+				<th id="accuracy">?</th>
+			</tr>
+			<tr>
+				<th>Timestamp</th>
+				<th id="timestamp">?</th>
+			</tr>
+			
+		</table>
+		<h4 id = "currDist">Current distance traveled: 0.0 km</h4>
+		<h4 id = "totalDist">Total distance traveled: 0.0 km</h4>
+	</body>
+</html>
