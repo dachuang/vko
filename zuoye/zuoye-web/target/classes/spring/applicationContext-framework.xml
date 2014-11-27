@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- hessian服务配置 -->
+	<bean name="hessianServiceConfig" class="cn.vko.hessian.core.HessianServiceConfig">
+		<property name="configFile" value="classpath:xml/hessian.xml" />
+	</bean>
+	<!-- 拦截器配置 -->
+	<bean class="com.vko.core.web.filter.interceptor.DefaultFilterInterceptorConfig">
+		<property name="filterInterceptors">
+			<list>
+				<bean class="com.vko.core.web.filter.interceptor.PerformanceInterceptor">
+				</bean>
+				<bean class="cn.vko.hessian.filter.interceptor.HessianInterceptor">
+					<property name="config" ref="hessianServiceConfig" />
+				</bean>
+				<bean class="cn.vko.zuoye.interceptor.ServletContextInterceptor">
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<!-- 运行环境探测.修改hosts文件 本地:1.0.0.0 environment.config,开发:2.0.0.0 environment.config,测试:3.0.0.0 environment.config -->
+	<bean id="environment" class="com.vko.core.common.environment.EnvironmentDetect">
+		<property name="resources">
+			<list>
+				<value>classpath:properties/jdbc.properties</value>
+				<value>classpath:properties/env.properties</value>
+				<value>classpath:properties/common_config.properties</value>
+				<value>classpath:properties/redis.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean class="com.vko.core.common.environment.ConfigPropertyConfigurer">
+		<property name="environment" ref="environment" />
+	</bean>
+
+	<bean class="com.vko.core.common.util.ApplicationUtil" />
+
+
+	<bean class="cn.vko.hessian.core.client.HessianClientFactoryBean">
+		<property name="objectType" value="cn.vko.zuoye.service.hessian.input.IPhotoService" />
+		<property name="url" value="http://photo.vko.cn/apis/PhotoService" />
+	</bean>
+
+	<!-- eh缓存配置 -->
+	<bean name="manager" class="cn.vko.cache.ehcache.CacheManagerFactoryBean">
+		<property name="configFile" value="classpath:xml/ehcache.xml" />
+	</bean>
+	<bean name="ehExpireCache" class="cn.vko.cache.ehcache.EhExpireCache">
+		<property name="manager" ref="manager" />
+		<property name="cacheName" value="serviceObjectCache" />
+	</bean>
+	<bean name="ehEntityCache" class="cn.vko.cache.ehcache.EhEntityCache">
+		<property name="manager" ref="manager" />
+	</bean>
+	<bean name="serviceCacheInterceptor" class="cn.vko.cache.service.CacheInterceptor">
+		<property name="expireCache" ref="ehExpireCache" />
+	</bean>
+
+	<!-- 全局配置 -->
+
+	<bean class="com.vko.core.common.util.KvConfig">
+		<property name="values">
+			<map>
+				<entry key="static" value="${static}" />
+				<entry key="sso" value="${sso}" />
+				<entry key="zao" value="${zao}" />
+				<entry key="login_page" value="${login_page}" />
+				<entry key="loginout_url" value="${loginout_url}" />
+				<entry key="loginout_to" value="${loginout_to}" />
+				<entry key="sso_cookie_key" value="${sso_cookie_key}" />
+				<entry key="login_cookie_token_domain" value="${login_cookie_token_domain}" />
+				<entry key="xiaoxue" value="${xiaoxue}" />
+				<entry key="teacher" value="${teacher}" />
+				<entry key="activity" value="${activity}" />
+				<entry key="www" value="${www}" />
+				<entry key="course" value="${course}" />
+				<entry key="app" value="${app}" />
+				<entry key="group" value="${group}" />
+				<entry key="cdn" value="${cdn}" />
+				<entry key="photo" value="${photo}" />
+				<entry key="tiku" value="${tiku}" />
+				<entry key="tk" value="${tk}" />
+				<entry key="zy" value="${zy}" />
+			</map>
+		</property>
+	</bean>
+</beans>

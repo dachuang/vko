@@ -1,0 +1,116 @@
+${httpInclude.include("/WEB-INF/share/head_v6.jsp")}
+<script type="text/javascript">
+	vkoFileLoader.load('/vko/css/homework/homework.css');
+</script>
+<div id="wrap" class="homework_page">
+	<div class="container clearfix">
+		<h3 class="hd_tit">${homework.name} </h3>
+		<ul class="hd_infos">
+			<li>发作业时间：${dateUtil.formatDateTime($!{homework.startTime})}</li>
+			<li>题数：#ifn(${homework.examNum},'0')</li>
+			<li>截止时间：${dateUtil.formatDateTime($!{homework.endTime})}</li>
+			<li>交作业人数：#ifn(${homework.handedNum},0)/#ifn(${homework.needHandNum},0)</li>
+		</ul>
+		<div class="doingyetmain clearfix">
+			<div class="left700">
+				<div class="hwimg">
+					<ul class="hmimg">
+						#foreach($data in $hwImagesList)
+						<li>
+							<img src="${data.cover}" width="208" height="118" />
+							<p>${data.name}</p>
+						</li>
+					#end
+					</ul>
+				</div>
+				<div class="explain">
+					<h6>作业说明</h6>
+					$!{homework.remark} 
+				</div>
+
+			</div>
+			<!--右边-->
+			<div class="right000">
+				<div class="time_cfs">
+					<div class="chengji_fs ">
+						<span class="jt_cg_fs"><img
+							src="${static}/vko/images/pic/jiantou.png"></span>
+						<div class="num_fs">
+							<div class="cd_fs">
+								<p class="l">所用时间:</p>
+								<p class="num_cd_fs marl10">00 00</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+		<form action="../shw/${stHW.id}.html" method="post">
+		<input type="hidden" name="type" value="${homework.type}"/>
+		<h5 class="hmtitle">答题卡</h5>
+		<div class="answer_sheet">
+			<div class="cut_t"></div>
+			<ul class="answer_items">
+				#set($count=0)
+				#foreach($e in $examList)
+				#set($count=$count+1)
+				<li>
+					<span class="test_sequence_yet">$count</span>
+					<dt>我的作答：</dt>
+				#if(${e.type}==351)
+					<dl class="rcf_all reply_con flag">
+					<dd>
+						<label><input type="radio" name="answer_${e.id}" value="A">A</label>
+					</dd>
+					<dd>
+						<label><input type="radio" name="answer_${e.id}" value="B">B</label>
+					</dd>
+					<dd>
+						<label><input type="radio" name="answer_${e.id}" value="C">C</label>
+					</dd>
+					<dd>
+						<label><input type="radio" name="answer_${e.id}" value="D">D</label>
+					</dd>
+				#elseif(${e.type}==353)
+					<dl class="rcf_all reply_con flag">
+					<dd>
+						<label><input type="checkbox" name="answer_${e.id}" value="A">A</label>
+					</dd>
+					<dd>
+						<label><input type="checkbox" name="answer_${e.id}" value="B">B</label>
+					</dd>
+					<dd>
+						<label><input type="checkbox" name="answer_${e.id}" value="C">C</label>
+					</dd>
+					<dd>
+						<label><input type="checkbox" name="answer_${e.id}" value="D">D</label>
+					</dd>
+				#elseif(${e.type}==368)
+					<dl class="rcf_all reply_con flag">
+					<dd><label><input type="radio"  name="answer_${e.id}" value="1"><i class="radio_true"></i></label></dd>
+					<dd><label><input type="radio"  name="answer_${e.id}" value="0"><i class="radio_false"></i></label></dd>
+				#else
+					<dl class="rcf_all reply_con_textarea">
+					<dd>
+						<textarea  name="answer_${e.id}" class="reply_textarea"></textarea>	
+					</dd>
+				#end
+					</dl>
+					</li>
+				#end
+			</ul>
+			<div class="cut_b"></div>
+
+		</div>
+		<div class="opreate_bar">
+			<input type="submit" value="交作业" class="test_submit">
+		</div>
+	</form>
+	</div>
+<script type="text/javascript">seajs.use('vkoweb/js/web/homework/do_shouji');</script>
+<script type="text/javascript">
+seajs.use('vkoweb/js/web/homework/imageLarger');
+</script>
+${httpInclude.include("/WEB-INF/share/footer_v6.jsp")}

@@ -1,0 +1,168 @@
+${httpInclude.include("/WEB-INF/share/head_v6.jsp")}
+<script type="text/javascript">vkoFileLoader.load('/vko/css/homework/judge_test.css');</script>
+<style type="text/css">
+.test_items_con .items.piyue{border-top:1px solid #dbdbdb}
+</style>
+<div id="wrap" class="test_page">
+	<div class="container clearfix">
+		<!-- 作业头部公共start -->
+		<h3 class="hd_tit">$!{obj.hw.name} </h3>
+		<ul class="hd_infos">
+			<li>$!{obj.hw.subjectName}</li>
+			<li>截止时间：$!{dateUtil.formatDateTime($!{obj.hw.endTime})}</li>
+			<li>题数 #ifn($!{obj.hw.examNum},0)</li>
+			<li>交作业人数：<a class="bold" href="#" title="交作业人数$!{obj.hw.handedNum}">$!{obj.hw.handedNum}</a>/$!{obj.hw.needHandNum}</li>
+			<li class="print_btn hidden"><i class="print_icon"></i>打印此页</li>
+		</ul>
+		<!-- 作业头部公共end -->
+		<div class="main">
+			<!-- 选择题start -->
+			<div class="homeworkname">
+				<div class="hwimg clearfix">
+					<ul>
+						#foreach($exam in $obj.imagesExam)
+							<li>
+								<img src="$!{exam.cover}" width="208" height="118" />
+								<p>$!{exam.name}</p>
+							</li>
+						#end
+					</ul>
+				</div>
+				<div class="explain">
+					<h6>作业说明</h6>
+					<p>$!{obj.hw.remark}</p>
+				</div>
+				<h5>客观题</h5>
+			</div>
+			
+			<div class="test_items_con clearfix">
+				<!-- 客观题 -->
+				#foreach($examId in $obj.objectiveIds)
+					#set($stat=${obj.examStat[${examId}]})
+					#set($optsStat=${obj.optionsStat[${examId}]})
+					<div class="outitems test_items_kgt">	
+						<span class="testflag test_sequence_yet">$!{stat.examOrder}</span>		
+						<div class="testresults">
+							<p class="resu_tr">正确<span class="zq_num">#ifn($!{stat.rightNum},0)</span>人，错误<span class="cw_num">#ifn($!{stat.wrongNum},0)</span>人，正确率<span class="numbfb">#ifn($!{stat.rightRate},0)%</span></p>
+							<ul>
+								#set($isJudge=$!{optsStat['0'].options}=='0'||$!{optsStat['1'].options}=='1')
+								
+								#if($isJudge)
+									<li class="#if(${optsStat['C'].isRight})check#end"><span class="flag chekword">对</span><div class="pross_tr"><div class="planbar"></div>　</div><span class="flag"><b>#ifn($!{optsStat['1'].total},0)</b>人</span><span class="see" statId="$!{optsStat['1'].id}">查看</span><span class="true">&nbsp;</span></li>
+									<li class="#if(${optsStat['D'].isRight})check#end"><span class="flag chekword">错</span><div class="pross_tr"><div class="planbar"></div>　</div><span class="flag"><b>#ifn($!{optsStat['0'].total},0)</b>人</span><span class="see" statId="$!{optsStat['0'].id}">查看</span><span class="true">&nbsp;</span></li>
+								#else
+									<li class="#if(${optsStat['A'].isRight})check#end"><span class="flag chekword">A</span><div class="pross_tr"><div class="planbar"></div>　</div><span class="flag"><b>#ifn($!{optsStat['A'].total},0)</b>人</span><span class="see" statId="$!{optsStat['A'].id}">查看</span><span class="true">&nbsp;</span></li>
+									<li class="#if(${optsStat['B'].isRight})check#end"><span class="flag chekword">B</span><div class="pross_tr"><div class="planbar"></div>　</div><span class="flag"><b>#ifn($!{optsStat['B'].total},0)</b>人</span><span class="see" statId="$!{optsStat['B'].id}">查看</span><span class="true">&nbsp;</span></li>
+									<li class="#if(${optsStat['C'].isRight})check#end"><span class="flag chekword">C</span><div class="pross_tr"><div class="planbar"></div>　</div><span class="flag"><b>#ifn($!{optsStat['C'].total},0)</b>人</span><span class="see" statId="$!{optsStat['C'].id}">查看</span><span class="true">&nbsp;</span></li>
+									<li class="#if(${optsStat['D'].isRight})check#end"><span class="flag chekword">D</span><div class="pross_tr"><div class="planbar"></div>　</div><span class="flag"><b>#ifn($!{optsStat['D'].total},0)</b>人</span><span class="see" statId="$!{optsStat['D'].id}">查看</span><span class="true">&nbsp;</span></li>
+								#end
+							</ul>
+						</div>
+					</div>
+				#end
+				
+			</div>
+			<div class="test_items_con">
+				<!-- 主观题 -->
+				#foreach($examId in $obj.subjectiveIds)
+					#set($stat=${obj.examStat[${examId}]})
+					#set($optsStat=${obj.optionsStat[${examId}]})
+					#set($default=${obj.defaultAnswer[${examId}]})
+
+					<div class="out3items clearfix">
+						<div class="items piyue">
+							<span class="testflag test_sequence">$!{stat.examOrder}</span>
+							<div class="answer">
+								<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								  <tr>
+							        <td width="100" valign="top"><div class="name-as">选择答题人阅卷：</div></td>
+								    <td><ul class="mennum">
+								    
+								    	#set($stuList=${obj.studentStat[${examId}]})
+								    	#foreach($stu in $obj.students)
+								    		#set($info=${stuList[${stu.studentId}]})
+								    		
+								    		#set($className="")
+								    		#set($score="")
+								    		#set($state=1)
+								    		#if($stu.studentId.longValue() == $default.studentId.longValue())
+								    			#set($className="nofen tj")
+								    			#set($state=2)
+								    		#elseif($info.isCheck)
+								    			#set($className="hasfen tj")
+								    			#set($state=1)
+								    		#else 
+								    			#set($className="anorange tj")
+								    			#set($state=2)
+								    		#end
+								    		
+								    		#if($info.isCheck)
+								    			#set($state=1)
+								    			#set($className="hasfen tj")
+								    			#set($score="<i>${info.score}</i>分")
+								    		#end
+								    		
+								    		#if($stu.status==102001)
+								    			#set($state=3)
+								    			<li class="bred" hwId="$!{stu.hwId}" sid="$!{stu.studentId}" examId="$!{examId}" stuName="$!{stu.studentName}"><b>${stu.studentName}</b><i>(未交)</i></li>
+								    		#else
+								    			<li class="${className}" hwId="$!{stu.hwId}" sid="$!{stu.studentId}" examId="$!{examId}" stuName="$!{stu.studentName}"><b>${stu.studentName}</b>${score}</li>
+								    		#end
+								    	#end
+								    	
+										</ul>
+									</td>
+								  </tr>
+								</table>
+							</div>
+							
+							<div class="personanser">
+								<ul>
+									<li>
+										<div class="perimg-as">
+										<!--头像-->
+											<div uid="123" class="vkouser vkouser_mini hidden" style="display:none;">
+									            <div class="vkouser_avatar"><a target="_blank" title="熙熙" href="#"><img width="30" height="30" alt="熙熙" src="http://static.vko.cn/vko/images/pic/vkouser_mini.jpg"><i class="vkouser_mask"></i></a></div>
+									            <div class="vkouser_name"><a target="_blank" title="熙熙" href="#">熙熙</a></div>
+									            <div class="vkouser_school">微课大学</div>
+									        </div>
+										</div>
+										<div class="main-as" style="padding-left:30px;">
+											#if($state==3)
+												##<p>作业未交（$!{default.realName}）</p>
+											#else
+												<p><span>#if(${default.realName})<b>${default.realName}</b>的答案#end</span></p>
+												<p class="result-as">$!{default.answer}</p>
+												<div class="complete-as">
+													#if($state==2)
+														<!-- 2:未阅 -->
+														#if(${obj.hw.status} != 101003)
+															<span><input type="text" name="" width="110" height="30" value="#ifn(${info.score}, '不超过100分')" class="answerscore" /></span><span><a class="btn50X30orange" href="javascript:;" title="btn_large_blue01">确定</a></span>
+														#end
+													#end
+													<span class="r">此题已完成阅卷<b class="reviewedNum">$!{stat.reviewedNum}</b>人，未阅卷<b class="unreviewNum">$!{stat.unreviewNum}</b>人</span>
+												</div>
+											#end
+										</div>
+									</li>
+								</ul>								
+							</div>
+							
+						</div>
+					</div>
+				#end
+				
+			</div>
+			<!-- 简答题end -->
+			<div class="opreate_bar">
+				#if(${obj.hw.status} != 101003)
+					<input class="test_submit" hwId="$!{obj.hw.id}" act="${act}" type="submit" value="完成批阅"/>
+				#end
+			</div>
+		</div>
+		
+		
+	</div>
+</div>
+<script type="text/javascript">seajs.use('vkoweb/js/web/homework/judge');</script>
+${httpInclude.include("/WEB-INF/share/footer_v6.jsp")}

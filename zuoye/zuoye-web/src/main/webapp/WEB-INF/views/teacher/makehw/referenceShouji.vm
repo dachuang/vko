@@ -1,0 +1,122 @@
+${httpInclude.include("/WEB-INF/share/head_v6.jsp")}
+<script type="text/javascript">vkoFileLoader.load('/vko/css/homework/homeworktest.css');</script>
+<style type="text/css">
+	body{
+		background-color: #deeef2;
+	}
+	.container{
+		background-color: #fff;
+		padding: 40px;
+	}
+	.hd_con{margin-top: 0px;}
+	#vkoAlbumUpLoad,.photo_upload{width:800px;}
+</style>
+<div class="hood"></div>
+<div id="wrap">
+	<div class="container clearfix">
+		<!-- 试卷试题切换sart -->
+		<div class="hd_con hmtabname">
+			<ul class="test_tab tab1 ">
+				<li onclick="location.href='${vgc.zy}/make/tiku.html'">引用题库</li>
+				<li class="check" onclick="location.href='${vgc.zy}/make/mobile.html'">手机照片题库</li>
+			</ul>
+			<div class="tklzy">
+				<h5>什么是引用题库留作业？</h5>
+可引用微课网题库的作业题进行作业布置，微课网题库涵盖小初高全部学科、所有知识点的精选题目，提供难易度、热度、题型等多种筛选标签帮您找到目标
+题目，让您发布作业实现：多、快、好、省。
+			</div>
+		</div>
+<form action="nmobile.html" method="post" id="submitForm">
+<input type="hidden" name="answer" id="answer">
+<input type="hidden" name="images" id="images" value='$!{jsonImages}'>
+<input type="hidden" name="albumId" id="albumId" value="$!{albumId}">
+		<div class="moblieti">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			  <tr>
+			    <td align="right" valign="top" class="tabth" style="padding-top:4px">选择作业图片：</td>
+			    <td class="jianjv"><div><a class="btn100X30blue phone" href="#">手机相册</a> <a class="btn100X30blue loca" href="#">本地上传</a></div>
+			    <div class="showimg">
+			    	<ul>
+			    		#foreach($data in $imagesList)
+			    			<li><img width="208" height="118" real="${data.photoUrl}" src="${data.photoUrl}!mid">
+			    			<p>${data.name} | <a href="javascript:;" real="${data.photoUrl}" class="lidele">删除</a></p></li>
+			    		#end
+			    	</ul>
+			    </div>
+			     <div class="photo_upload">
+			    	<div class="title"><p class="l">本地上传</p><p class="r h close">X</p></div>
+			    	 <div class="photo_upload2"></div>
+			    </div>
+			    
+			    </td>
+			  </tr>
+			  <tr>
+			    <td align="right" valign="top" class="tabth"><p>作业说明：</p><span>（选填）</span></td>
+			    <td class="jianjv"><textarea name="remark">$!{remark}</textarea></td>
+			  </tr>
+			  <tr>
+			    <td align="right" valign="top" class="tabth"><p>答题卡设置：</p><span></span></td>
+			    <td class="">
+			    <ul class="setanswer">
+			    	#if($answer)
+			    		#set($count=0)
+			    		#foreach($a in $answerList)
+							#set($count=$count+1)	
+							<li>
+				    		<dl class="tq">
+								<dt>第$count题</dt>
+								<dd><input type="radio" name="n_${count}" class="eventcls" #if($a.type=='351')checked="checked" #end value="351"><label >单选题</label></dd>
+								<dd><input type="radio" name="n_${count}" class="eventcls" #if($a.type.contains('353'))checked #end value="353"><label >多选题</label></dd>
+								<dd><input type="radio" name="n_${count}" class="eventcls" #if($a.type.contains('368'))checked #end value="368"><label >判断题</label></dd>
+								<dd><input type="radio" name="n_${count}" class="eventcls" #if($a.type.contains('10000'))checked #end value="10000"><label >其它</label></dd>
+							</dl>
+				    		#if(${a.type}=='351')
+								<dl class="d-an xuanzhe"><dt>设置答案</dt>
+								<dd><input type="radio" class="answercls" name="${count}" #if($a.answer.contains('A'))checked #end value="A"><label >A</label></dd>
+								<dd><input type="radio" class="answercls" name="${count}" #if($a.answer.contains('B'))checked #end value="B"><label >B</label></dd>
+								<dd><input type="radio" class="answercls" name="${count}" #if($a.answer.contains('C'))checked #end  value="C"><label >C</label></dd>
+								<dd><input type="radio" class="answercls" name="${count}" #if($a.answer.contains('D'))checked #end  value="D"><label >D</label></dd>
+								<dd class="r rowdelete"><a href="javascript:">删除</a></dd></dl>
+				    		#elseif(${a.type}=='353')
+				    			<dl class="d-an xuanzhe"><dt>设置答案</dt>
+								<dd><input type="checkbox" class="answercls" name="${count}" #if($a.answer.contains('A'))checked #end  value="A"><label >A</label></dd>
+								<dd><input type="checkbox" class="answercls" name="${count}" #if($a.answer.contains('B'))checked #end  value="B"><label >B</label></dd>
+								<dd><input type="checkbox" class="answercls" name="${count}" #if($a.answer.contains('C'))checked #end  value="C"><label >C</label></dd>
+								<dd><input type="checkbox" class="answercls" name="${count}" #if($a.answer.contains('D'))checked #end  value="D"><label >D</label></dd>
+								<dd class="r rowdelete"><a href="javascript:">删除</a></dd></dl>
+				    		#elseif(${a.type}=='368')
+								<dl class="d-an panduan"><dt>设置答案</dt>
+								<dd><p class="l"><input type="radio" class="answercls" name="${count}" #if($a.answer.contains('0'))checked #end  value="0"></p><p class="l">
+								<label  class="afalse"></label></p></dd>
+								<dd><p class="l"><input type="radio" class="answercls" name="${count}" #if($a.answer.contains('1'))checked #end  value="1"></p><p class="l">
+								<label  class="atrue"></label></p></dd>
+								<dd class="r rowdelete"><a href="javascript:">删除</a></dd></dl>
+				    		#else
+					    		<dl class="d-an zhuguan">
+								<dt class="noanwer"><input type="hidden" class="answercls" name="${count}" value="">*其他题型主观判卷，不设置答案</dt>
+								<dd class="r rowdelete"><a href="javascript:">删除</a></dd></dl>
+				    		#end
+				    		
+				    		</li>
+			    		#end
+			    	#end
+			    </ul>
+			    </td>
+			  </tr>
+			  <tr>
+			  	<td></td>
+			  	<td style="height:45px; padding-top:3px;" valign="top">
+			  	<span class="addlibtn">添加</span>
+			  	</td>
+			  </tr>
+			  <tr>
+			  	<td></td>
+			  	<td><span class="createzybtn">生成作业</span></td>
+			  </tr>
+			</table>
+
+		</div>
+		</form>
+</div>
+<script type="text/javascript">seajs.use('vkoweb/js/web/homework/refer_shouji');</script>
+${httpInclude.include("/WEB-INF/share/footer_v6.jsp")}

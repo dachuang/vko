@@ -1,0 +1,101 @@
+##解析模块
+#macro(getResolve $exam $show)
+<div class="jiexiti" style="display: none;">
+<ul>
+#if(${exam.k2List} and ${exam.k2List.size()}>0)
+	<li><p class="videtitle_jx">知识点：</p>
+	#foreach($re in ${exam.k2List})
+	${re.name}；
+	#end
+	</li>
+#end
+
+#if(${exam.teacherResolves} and ${exam.teacherResolves.size()}>0)
+#foreach($re in ${exam.teacherResolves})
+<li><p class="videtitle_jx">本次作业解析：</p>${re.content}</li>
+#end
+#end
+
+#foreach($re in ${exam.resolvesList})
+#if(${re.type}==3)
+
+#else
+	<li><p class="videtitle_jx">解析：</p>${re.content}</li>
+#end
+#end
+#if($show)
+<li><p class="videtitle_jx">答案：</p>$!{exam.answer.rightAnswer}</li>
+#end
+</ul>
+</div>
+#end
+
+
+
+
+#macro(page $pageObj)
+	#set($url="$vkoUtil.getUrl()")
+	#if(${pageObj.count}>0)
+	<div class="vkopage">
+		#if(${pageObj.page} != 1)
+			#set($firstUrl="${url}_index=1")
+		#else
+			#set($firstUrl="javascript:;")
+			#set($disabledFirst="vkopage_disabled")
+		#end
+		<a href="$!{firstUrl}" class="vkopage_first $!{disabledFirst}">首页</a>
+		#if(${pageObj.getHasPrevious()})
+			#set($_this=${pageObj.page} - 1)
+			#set($prevUrl="${url}_index=$_this")
+		#else
+			#set($disabledPrev="vkopage_disabled")
+			#set($prevUrl="javascript:;")
+		#end
+		<a href="$!{prevUrl}" class="vkopage_previous $!{disabledPrev}">上一页</a>
+		
+		#if(${pageObj.page}>5)
+			#set($start=${pageObj.page} - 4)
+		#else 
+			#set($start=1)
+		#end
+		#set($end=${pageObj.page}+4)
+		#if($end>${pageObj.getPages()})
+			#set($end=${pageObj.getPages()})
+		#end
+		
+		#foreach($_number in [$start .. $end])
+			#if(${pageObj.page}==$_number)
+    		<a href="javascript:;" class="vkopage_current">$_number</a>
+			#elseif($_number!=0)
+			<a href="${url}_index=$_number">$_number</a>
+    		#end
+		#end
+		##显示结束
+		#if(${pageObj.getHasNext()})
+			#set($_this=${pageObj.page} + 1)
+			#set($disabledNext="")
+			#set($nextUrl="${url}_index=$_this")
+		#else
+			#set($disabledNext="vkopage_disabled")
+			#set($nextUrl="javascript:;")
+		#end
+		<a href="$!{nextUrl}" class="vkopage_next $!{disabledNext}">下一页</a>
+			
+		#set($lastUrl="${url}_index=${pageObj.getPages()}")
+		#if(${pageObj.page} == ${pageObj.getPages()})
+			#set($disabledLast="vkopage_disabled")
+			#set($lastUrl="javascript:;")
+		#end
+		<a href="$!{lastUrl}" class="vkopage_last $!{disabledLast}">末页</a>
+	</div>
+	#end
+#end
+
+##默认值处理宏
+#macro (ifn $obj $def)
+#if($obj)$obj#else$def#end
+#end
+
+#macro (empty $obj $def)
+#if($obj && $obj!='')$obj#else$def#end
+#end

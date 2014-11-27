@@ -1,0 +1,62 @@
+${httpInclude.include("/WEB-INF/share/head_v6.jsp")}
+<style type="text/css">
+body {
+	background-color: #dfeef3
+}
+</style>
+<script type="text/javascript">
+	vkoFileLoader.load('/vko/css/homework/createhomework.css'); //修改为所需css文件路径
+</script>
+<div id="wrap">
+	<div class="container clearfix">
+		<div class="create-mob-hw">
+			<form action="smobile.html" id="saveform" method="post">
+			<input type="hidden" name="base64Data" value="${base64Data}"/>
+				<dl>
+					<dt>
+						<span class="title">生成作业</span>
+					</dt>
+					<dd style="padding-top: 20px">
+						<span class="nametit">作业名称：</span><span>
+						<input type="text" name="name" style="width: 200px;"/></span>
+					</dd>
+					<dd>
+						<span class="nametit">发布班级：</span>
+						#foreach($g in $groupMap.entrySet())
+						<span class="padr8">
+						<b class="padr4"><input type="checkbox" name="groupId" value="${g.getKey()}"></b>
+						${g.getValue()}</span>
+						#end
+					</dd>
+					<dd>
+						<div class="l">
+							<span class="nametit">用时限制：</span><span><input type="text"
+								name="hour" id="hour" class="w40" value="小时" /></span> <span><input
+								type="text" name="minute" id="minute" class="w40" value="分钟" /></span>
+						</div>
+						<div class="l">
+							<span class="one">1小时</span><span class="two">2小时</span>
+						</div>
+					</dd>
+					<dd style="padding-bottom: 20px">
+						<span class="nametit">发缴时间：</span><span><input
+							type="text" name="startTime"
+							placeholder="输入发作业时间" readonly="readonly" class="ipt_text timedpicker" /></span>--<span><input
+							type="text" name="endTime"
+							placeholder="输入收缴作业时间" readonly="readonly" class="ipt_text timedpicker" /></span>
+					</dd>
+				</dl>
+				<div class="next-cmh">
+					<input type="button" value="上一步" class="bbtn120X40" />  <input
+						type="button" value="发布作业" class="bbtn140X40 r" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	seajs.use('vkoweb/js/web/homework/next_shouji');
+	seajs.use('vkoweb/js/web/homework/mcreate');
+</script>
+${httpInclude.include("/WEB-INF/share/footer_v6.jsp")}

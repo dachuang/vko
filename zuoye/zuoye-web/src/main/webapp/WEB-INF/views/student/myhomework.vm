@@ -1,0 +1,62 @@
+${httpInclude.include("/WEB-INF/share/head_v6.jsp")}
+<script type="text/javascript">vkoFileLoader.load(['/vko/css/myhome/home.css','/vko/css/course/list.css']);</script>
+<div id="wrap">
+	<div class="container clearfix">
+		${httpInclude.include("/WEB-INF/share/mine/student_inner_left.jsp?type=10")}
+		<div class="main">
+			<div class="hd_line">
+				<div class="hd_menu_line">
+					<div class="tit">我的作业<i></i></div>
+				</div>
+			</div>
+			<div class="box">
+				<div class="main_hd_tab">
+					<a class="current" href="#" title="未完成作业">未完成作业</a>
+					<a href="#" title="已完成作业">已完成作业</a>
+				</div>
+				<!-- 科目分类 start -->
+				<dl class="object_bar">
+					<dt class="current">全部</dt>
+					<dd>语文</dd>
+					<dd>数学</dd>
+					<dd>英语</dd>
+					<dd>物理</dd>
+					<dd>化学</dd>
+					<dd>生物</dd>
+					<dd>历史</dd>
+					<dd>地理</dd>
+					<dd>政治</dd>        
+				</dl>
+				<!-- 科目分类 start -->
+				<!-- 作业列表 start -->
+				<dl class="table_task">
+					<dt class="t_hd">
+						<div class="t_65 t_obj">学科</div>
+						<div class="t_85 t_time">截止时间 </div>
+						<div class="t_215 t_name">作业名称</div>        
+						<div class="t_85 t_question">题数</div>
+						<div class="t_100 t_people">交作业人数 </div>  
+						<div class="t_100 t_status">作业状态</div>
+						<div class="t_140 t_operate">操作</div>
+					</dt>
+					#foreach($hw in $hwList)
+					<dd class="t_itmes">
+						<div class="t_65 t_obj">$!{hw.hwId}-$!{hw.subjectName}&nbsp;</div>
+						<div class="t_85 t_time">$util.formatDate($hw.endTime)&nbsp;</div>
+						<div class="t_215 t_name bold font14"><a href="#" title="$hw.hwName">$hw.hwName</a></div>        
+						<div class="t_85 t_question">客:$!{hw.objectiveNum},主:$!{hw.subjectiveNum}</div>
+						<div class="t_100 t_people"><a class="bold" href="#" title="30">30</a>/48 </div>  
+						<div class="t_100 t_status">新作业</div>
+						<div class="t_140 t_operate"><a href="#" title="做作业">做作业</a></div>
+					</dd>
+					#end
+						
+				</dl>
+				<div class="page">#page($page)</div>
+				<!-- 作业列表 end -->
+			</div>
+		</div>
+	</div>
+</div>
+<!-- <script type="text/javascript">seajs.use('vkoweb/js/web/myhome/chart');</script> -->
+${httpInclude.include("/WEB-INF/share/footer_v6.jsp")}

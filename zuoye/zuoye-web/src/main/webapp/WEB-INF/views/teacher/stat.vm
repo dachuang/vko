@@ -1,0 +1,87 @@
+${httpInclude.include("/WEB-INF/share/head_v6.jsp")}
+<script type="text/javascript">vkoFileLoader.load('/vko/css/homework/homework.css');</script>
+<div id="wrap" class="homework_page">
+	<div class="container clearfix">
+		<!-- 作业头部公共start -->
+		<h3 class="hd_tit">$!{obj.hwStat.name}</h3>
+		<ul class="hd_infos">
+			<!--<li>数学&nbsp;&nbsp;课后作业</li>-->
+			<li>题数：$!{obj.hwStat.examNum}</li>
+			<li>截止时间：$!{dateUtil.formatDateTime($!{obj.hwStat.endTime})}</li>
+			<li>班级：$!{obj.hwStat.groupName}</li>
+			<li>交作业人数：<a class="bold" href="#" title="交作业人数$!{obj.hwStat.handedNum}">$!{obj.hwStat.handedNum}</a>/$!{obj.hwStat.needHandNum}</li>
+			<li class="print_btn hidden"><i class="print_icon"></i>打印此页</li>
+		</ul>
+		<!-- 作业头部公共end -->
+		
+		<div class="statistics_con">
+			<h4>班级统计</h4>
+			<table class="table statistics_table" width="100%">
+				<tr class="hover">
+					<th>完成作业</th>
+					<th>未完成作业</th>
+					<th>题目数</th>
+					<th>平均耗时</th>
+					<th>平均分</th>
+				</tr>
+				#set($rateOjb=$obj.hwStat.objectiveNum>0)
+				#set($rateSub=$obj.hwStat.subjectiveNum>0)
+				<tr class="">
+					<td>$!{obj.hwStat.handedNum}</td>
+					<td>$!{obj.hwStat.notFinishNum}</td>
+					<td>$!{obj.hwStat.examNum}</td>
+					<td>$!{obj.hwStat.useTime}</td>
+					<td>
+						#if($rateOjb)
+						<span class="red">客$!{obj.hwStat.rightRate}%</span>
+						#end
+						#if($rateOjb && $rateSub)
+							，&nbsp;
+						#end
+						#if($rateSub)
+						<span class="red">主$!{obj.hwStat.avgScore}%</span>
+						#end
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div class="statistics_con">
+			<h4>学生统计</h4>
+			<table class="table statistics_table" width="100%">
+				<tr class="hover">
+					<th>姓名</th>
+					<th>状态</th>
+					<th>正确数（客）</th>
+					<th>耗时</th>
+					<th>成绩</th>
+				</tr>
+				#foreach($stu in $obj.stuStat)
+				#set($rateOjb=$stu.objectiveNum>0)
+				#set($rateSub=$stu.subjectiveNum>0)
+				<tr class="">
+					<td>$!{stu.studentName}</td>
+					<td>$vkoUtil.keyResolve($!{stu.status})</td>
+					<td>$!{stu.rightNum}/$!{stu.objectiveNum}</td>
+					<td>$!{stu.useTime}</td>
+					<td>
+						#if($rateOjb)
+						<span class="red">客#ifn($!{stu.objectiveRate},0)%</span>
+						#end
+						#if($rateOjb && $rateSub)
+							，&nbsp;
+						#end
+						#if($rateSub)
+						<span class="red">主#ifn($!{stu.subjectiveRate},0)%</span>
+						#end
+					</td>
+				</tr>
+				#end
+				
+			</table>
+		</div>
+		
+	</div>
+</div>
+<!-- <script type="text/javascript">seajs.use('vkoweb/js/web/myhome/chart');</script> -->
+${httpInclude.include("/WEB-INF/share/footer_v6.jsp")}

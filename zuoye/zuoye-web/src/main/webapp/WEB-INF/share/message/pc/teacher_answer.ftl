@@ -1,0 +1,1 @@
+<cms:user st='name' uid='${currentUserId}'/>老师回答了你在<a href="<cms:url st='course_play_from_video_book_seo' bookId='${bookId}' courseId='${videoId}' goodsId='${goodsId}'/>" title="${v.name}" target="_blank">${v.name}</a>的问题 <a href="<cms:url st='course_play_from_video_book_seo' bookId='${bookId}' courseId='${videoId}' goodsId='${goodsId}'/>" title="${v.name}" target="_blank">查看</a>

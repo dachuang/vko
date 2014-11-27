@@ -1,0 +1,1 @@
+${realName} 申请加入 ${groupName}群

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.vko.zuoye.mapper.MyFalseMapper">
+
+	<select id="selectMyFalse" resultType="myFalse">
+		select
+		id,gmt_create_id,gmt_created,gmt_delete,gmt_modify,gmt_modify_id,examsId,reason,subjectId,subjectName,typeId,typeName,source 
+		from tk_exams_error where gmt_delete=1 and gmt_create_id=#{stdId} 
+		<if test="subjectId &gt; 0">
+			and subjectId=#{subjectId}
+		</if>
+	</select>
+	
+	<update id="delMyfalse">
+		update tk_exams_error set gmt_delete=2 where id=#{fid}
+	</update>
+
+</mapper>

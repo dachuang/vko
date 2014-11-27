@@ -1,0 +1,1 @@
+${currentName} 拒绝你加入 ${groupName}群

@@ -1,0 +1,1 @@
+您被设置成<a href="<cms:url st='group' gid='${groupId}'/>" title="${groupName} " target="_blank">${groupName} </a>群的管理员，拥有更多权限了

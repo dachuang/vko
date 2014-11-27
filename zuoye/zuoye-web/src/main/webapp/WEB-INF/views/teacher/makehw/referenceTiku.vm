@@ -1,0 +1,223 @@
+${httpInclude.include("/WEB-INF/share/head_v6.jsp")}
+<script type="text/javascript">vkoFileLoader.load('/vko/css/homework/homeworktest.css');</script>
+<style type="text/css">
+	body{
+		background-color: #deeef2;
+	}
+	.container{
+		background-color: #fff;
+		padding: 40px;
+	}
+	.hd_con{margin-top: 0px;}
+</style>
+<div id="wrap">
+	<div class="container clearfix">
+		<!-- 试卷试题切换sart -->
+		<div class="hd_con hmtabname">
+			<ul class="test_tab tab1 ">
+				<li class="check" onclick="location.href='${vgc.zy}/make/tiku.html'">引用题库</li>
+				<li onclick="location.href='${vgc.zy}/make/mobile.html'">手机照片题库</li>
+			</ul>
+			<div class="tklzy">
+				<h5>什么是引用题库留作业？</h5>
+可引用微课网题库的作业题进行作业布置，微课网题库涵盖小初高全部学科、所有知识点的精选题目，提供难易度、热度、题型等多种筛选标签帮您找到目标
+题目，让您发布作业实现：多、快、好、省。
+			</div>
+		</div>
+		<!-- 试卷试题切换end -->
+		<!-- 题库筛选 start -->
+		<div class="question_bank_select">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<th width="80">选题</th>
+					<td width="*">
+						<dl>
+							<dt #if($k1=='-')class="selected" #end><a href="${vgc.zy}/make/tiku/-_-_-_-_0.html" title="全部">全部</a></dt>
+							#foreach($k in $k1List)
+							#set($temp="${k.id}-")
+							
+							<dd>	
+							#if($k1.contains($temp))
+								#set($url=$k1.replace($temp,''))
+							#else
+								#set($url="${k1}${k.id}-")
+							#end
+							
+							<a href="${vgc.zy}/make/tiku/${url}_-_-_-_0.html" title="${k.name}">
+							 #if($k1.contains($temp) or $k1=='-')
+								<i class="tag_checked"></i>${k.name}
+							 #else
+								<i class="tag"></i>${k.name}
+							 #end
+							</a>
+							</dd>
+							#end
+						</dl>
+						#if($k1!='-') 
+						<dl>
+							<dt #if($k2=='-')class="selected" #end><a href="${vgc.zy}/make/tiku/${k1}_-_-_-_0.html" title="全部">全部</a></dt>
+							#foreach($kk in $k2List)
+							#set($temp="${kk.id}-")
+							<dd>		
+							#if($k2.contains($temp))
+								#set($url=$k2.replace($temp,''))
+							#else
+								#set($url="${k2}${kk.id}-")
+							#end
+							<a href="${vgc.zy}/make/tiku/${k1}_${url}_-_-_0.html" title="${kk.name}">
+							#if($k2.contains($temp) or $k2=='-')
+							 <i class="tag_checked"></i>$!{kk.name}
+							#else
+							<i class="tag"></i>$!{kk.name}
+							#end
+							</a>
+							
+							</dd>
+							#end
+						</dl>
+						#end
+						
+						#if($k2!='-')
+						<dl>
+							<dt #if($k3=='-')class="selected" #end><a href="${vgc.zy}/make/tiku/${k1}_${k2}_-_-_0.html" title="全部">全部</a></dt>
+							#foreach($kkk in $k3List)
+								#set($temp="${kkk.id}-")
+							<dd>		
+    							#if($k3.contains($temp))
+    								#set($url=$k3.replace($temp,''))
+    							#else
+    								#set($url="${k3}${kkk.id}-")
+    							#end
+							<a href="${vgc.zy}/make/tiku/${k1}_${k2}_${url}_-_0.html" title="${kkk.name}">
+							#if($k3.contains($temp) or $k3=='-') 
+								<i class="tag_checked"></i>$!{kkk.name}
+							#else
+								<i class="tag"></i>$!{kkk.name}
+							 #end
+							</a>
+							</dd>
+							#end
+						</dl>
+						#end
+					</td>
+				</tr>
+		
+				<tr class="quesType">
+					<th width="80">题型 ></th>
+					<td width="*">
+						<dl>
+							<dt #if($type=='-') class="selected" #end><a href="${vgc.zy}/make/tiku/${k1}_${k2}_${k3}_-_0.html" title="全部">全部</a></dt>
+							#foreach($t in $typeList)
+								#set($temp="${t.id}-")
+							<dd #if($type.contains($temp) or $type=='-') class="selected selected2" #end>		
+								#if($type.contains($temp))
+									#set($url=$type.replace($temp,''))
+    							#else
+    								#set($url="${type}${t.id}-")
+    							#end
+							<a href="${vgc.zy}/make/tiku/${k1}_${k2}_${k3}_${url}_0.html" title="${t.name}"><i class="tag"></i>$!{t.name}</a>
+							</dd>
+							#end
+						</dl>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<!-- 题库筛选 end -->
+		<!-- 题库排序 start -->
+		<div class="sort_bar">
+			<dl>
+				#set($baseUrl="${vgc.zy}/make/tiku/${k1}_${k2}_${k3}_${type}")
+				#set($sort100="${baseUrl}_100.html")
+				#set($sort200="${baseUrl}_200.html")
+				#set($sort300="${baseUrl}_300.html")
+				#set($sort400="${baseUrl}_400.html")
+				
+				#if($sort==100)
+					#set($sort100="${baseUrl}_101.html")
+					#set($current100="current")
+					#set($asc100="desc")
+				#elseif($sort==101)
+					#set($asc100="asc")
+					#set($current100="current")
+				#elseif($sort==200)
+					#set($sort200="${baseUrl}_201.html")
+					#set($current200="current")
+					#set($asc200="desc")
+				#elseif($sort==201)
+					#set($current200="current")
+					#set($asc200="asc")
+				#elseif($sort==300)
+					#set($sort300="${baseUrl}_301.html")
+					#set($current300="current")
+					#set($asc300="desc")
+				#elseif($sort==301)
+					#set($asc300="asc")
+					#set($current300="current")
+				#elseif($sort==400)
+					#set($sort400="${baseUrl}_401.html")
+					#set($current400="current")
+					#set($asc400="desc")
+				#elseif($sort==401)
+					#set($asc400="asc")
+					#set($current400="current")
+				#end
+				<dd class="$!current100"><a class="$!asc100"  href="$sort100" title="引用次数">引用次数#if($asc100)<i></i>#end</a></dd>
+				<dd class="$!current200"><a class="$!asc200" href="$sort200" title="难易度">难易度#if($asc200)<i></i>#end</a></dd>
+				<dd class="$!current300"><a class="$!asc300"  href="$sort300" title="正确率">正确率#if($asc300)<i></i>#end</a></dd>
+				<dd class="$!current400"><a class="$!asc400"  href="$sort400" title="上传时间">上传时间#if($asc400)<i></i>#end</a></dd>
+			</dl>
+		</div>
+		<!-- 题库排序 end -->
+		<!-- 试题列表 start -->
+		<div class="quer_main">
+			<div class="main">
+			<div class="test_items_con">
+				#if($page.records.isEmpty())
+				<div style="text-align: center;font-size: 14px;">老师正在加班制作中...</div>
+				#end
+				#set($count=0)
+				#foreach($p in $page.records)
+					#set($count=$count+1)
+				<div class="items">
+					<div class="question_body">
+						$!{p.content}
+					</div>
+				
+					<div class="topicfoot">
+								<p>引用：<span>#ifn(${p.referenceNum},0)</span>次</p>
+								<p>正确率：<span>$!{p.correctRate}%</span></p>
+								<p>难易度：<span>$!{p.difficultyName}</span></p>
+								#if(${select.contains(${p.id.toString()})})
+									<span etype="${p.typeName}" eid="${p.id}" class="btn_blue03 r">取消加入</span>
+								#else
+									<span etype="${p.typeName}" eid="${p.id}" class="select_btn r">加入选题栏</span>
+								#end
+							
+								
+							</div>
+				</div>
+				#end
+				##分页
+				#page($page)
+			</div>
+		</div>
+		<!-- 试题列表 end -->
+		<div class="rightSide">
+			<div class="basket_con">
+				<div class="question_basket">	
+					<h4>选题栏</h4>
+					<div class="emptyBox" style="display:none">你还没有选择试题</div>
+					
+				</div>
+				<div class="select_question_opreate" style="margin-top:8px">
+				<a class="oragne2X2-css" href="javascript:;" title="发布作业">发布作业</a>
+				</div>
+		</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+seajs.use('vkoweb/js/web/homework/search_tiku');
+</script>
+${httpInclude.include("/WEB-INF/share/footer_v6.jsp")}

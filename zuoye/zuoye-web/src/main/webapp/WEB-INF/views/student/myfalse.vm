@@ -1,0 +1,101 @@
+${httpInclude.include("/WEB-INF/share/head_v6.jsp")}
+<script type="text/javascript">vkoFileLoader.load(['/vko/css/myhome/home.css','/vko/css/homework/homework.css']);</script>
+<div id="wrap">
+	<div class="container clearfix">
+		<div class="left_side">
+			<div class="vkouser vkouser_large" uid="123">
+	            <div class="vkouser_avatar"><a href="#" title="熙熙" target="_blank"><img src="http://static.vko.cn/vko/images/pic/vkouser_large.jpg" width="100" height="100" alt="熙熙"><i class="vkouser_mask"></i></a></div>
+	            <div class="vkouser_name"><a href="#" title="熙熙" target="_blank">熙熙</a></div>
+	            <div class="vkouser_school">微课大学</div>
+	        </div>
+			<!-- 右侧导航 start -->
+			<ul class="mine_menu">
+				<li><a class="total" href="#" title="87节课程">87</a><a class="mine_course" href="#" title="我的课程">我的课程</a></li>
+				<li><a class="total" href="#" title="87节课程">87</a><a class="mine_work" href="#" title="我的作业">我的作业</a></li>
+			    <li><a class="ask_btn" href="#" title="提问">提问</a><a class="mine_question" href="#" title="我的问答">我的问答</a></li>
+			    <li><a class="test_btn" href="#" title="测试">测试</a><a class="mine_test" href="#" title="我的测试">我的测试</a></li>
+			    <li class="current"><a class="total" href="#" title="87节课程">87</a><a class="mine_wrong" href="#" title="错题本">错题本</a></li>
+			    <li class="line"></li>
+			    <li><a class="create_btn" href="#" title="创建小灶">新建</a><a class="mine_zao" href="#" title="我的小灶">我的小灶</a></li>
+			    <li><a class="mine_speak" href="#" title="我的发言">我的发言</a></li>
+			    <li><a class="mine_photo" href="#" title="我的相册">我的相册</a></li>
+			    <li><a class="mine_post" href="#" title="我的转帖">我的转帖</a></li>
+			    <li><a class="mine_comment" href="#" title="我的评论">我的评论</a></li>
+			    <li class="line"></li>
+			    <li><a class="mine_dream" href="#" title="我的梦想">我的梦想</a></li>
+			    <li><a class="mine_task" href="#" title="我的任务">我的任务</a></li>
+			    <li><a class="mine_medal" href="#" title="我的勋章">我的勋章</a></li>
+			    <li class="line"></li>
+			    <li><a class="mine_statistic" href="#" title="学习统计">学习统计</a></li>
+			    <li><a class="mine_order" href="#" title="我的订单">我的订单</a></li>
+			</ul>
+			<!-- 左侧导航 end -->
+		</div>
+		
+		<div class="main">
+			<div class="hd_line">
+				<div class="hd_menu_line">
+					<div class="tit">错题本<i></i></div>
+				</div>
+			</div>
+			<div class="box">
+				<!-- 科目分类 start -->
+				<dl class="object_bar">
+					<dt class="current">全部</dt>
+					<dd>语文</dd>
+					<dd>数学</dd>
+					<dd>英语</dd>
+					<dd>物理</dd>
+					<dd>化学</dd>
+					<dd>生物</dd>
+					<dd>历史</dd>
+					<dd>地理</dd>
+					<dd>政治</dd>        
+				</dl>
+				<!-- 科目分类 start -->
+				<!-- 我的评论 start -->
+				<div class="total_content">共${page.count}道错题</div>
+				<div class="test_items_con">
+				
+				#foreach($f in $flist)
+					<div class="items">
+						<div class="hd_infos">
+							<div class="from left">来源：<a title="三角函数的应用课后作业" href="#">三角函数的应用课后作业</a></div>
+							<div class="opreate right"><span class="delete">删除</span>|<span class="time">加入错题本时间：$util.formatDateTime($f.gmt_created)</span></div>
+						</div>
+						<div class="question_body">
+							$!{f.examContent}
+						</div>
+						<div class="question_result_con">
+							<div class="choose_con">
+								<!--<span class="false"><i></i>你的答案 B</span>
+								<span class="true"><i></i>正确答案 C</span>-->
+								<dl class="otherChoose">
+									<dt>别人都选什么</dt>
+									<dd>13人选A</dd>
+									<dd>25人选B</dd>
+									<dd>12人选C</dd>
+									<dd>78人选D</dd>
+								</dl>
+								<div class="opreate_con r">
+									<span class="analysisBtn">查看解析<i class="btn_arrowr_t"></i></span>									
+							</div>
+						</div>
+						<div class="relative_con">				
+								<div class="analysisCon">
+									<i class="analysis_arrow"></i>
+									这里是解析的内容
+								</div>
+							</div>
+					</div>					
+				</div>
+				#end
+
+				
+				<!-- 我的评论 end -->
+			</div>
+		</div>
+	</div>
+</div>
+<!-- <script type="text/javascript">seajs.use('vkoweb/js/web/myhome/chart');</script> -->
+${httpInclude.include("/WEB-INF/share/footer_v6.jsp")}

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<classPathEntry location="D:\dev\repo\mysql\mysql-connector-java\5.1.15\mysql-connector-java-5.1.15.jar" /><!--驱动包的绝对路径 -->
+	<context id="tables" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.1.246:3306/vko7?characterEncoding=utf8"
+			userId="delete7" password="vko999999">
+		</jdbcConnection>
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+
+		<javaModelGenerator targetPackage="cn.vko.zuoye.entity" targetProject="zuoye-entity">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+			<property name="constructorBased" value="false" />
+		</javaModelGenerator>
+		<sqlMapGenerator targetPackage="cn.vko.zuoye.mapper" targetProject="zuoye-dao">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		<javaClientGenerator type="XMLMAPPER" targetPackage="cn.vko.zuoye.mapper" targetProject="zuoye-dao">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		<!-- 表 例子-->
+		<table tableName="zy_exam_options" domainObjectName="ExamOptions" enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true"/>
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+		</table>
+		<table tableName="zy_exam_resolve" domainObjectName="ExamResolve" enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true"/>
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+		</table>
+		<table tableName="zy_homework" domainObjectName="Homework" enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true"/>
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+		</table>
+		<table tableName="zy_hw_answer_card" domainObjectName="HwAnswerCard" enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true"/>
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+		</table>
+		<table tableName="zy_hw_exam" domainObjectName="HwExam" enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true"/>
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+		</table>
+		<table tableName="zy_hw_images" domainObjectName="HwImages" enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true"/>
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+		</table>
+		<table tableName="zy_student_answer" domainObjectName="StudentAnswer" enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true"/>
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+		</table>
+		<table tableName="zy_student_homework" domainObjectName="StudentHomework" enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true"/>
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+		</table>
+		<table tableName="zy_student_options" domainObjectName="StudentOptions" enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true"/>
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+		</table>
+	</context>
+</generatorConfiguration>

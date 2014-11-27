@@ -1,0 +1,199 @@
+${httpInclude.include("/WEB-INF/share/head_v6.jsp")}
+<script type="text/javascript">vkoFileLoader.load('/vko/css/group/group.css');</script>
+<script type="text/javascript">vkoFileLoader.load('/vko/css/homework/judge_test.css');</script>
+<script type="text/javascript">vkoFileLoader.load('/vko/css/homework/alterauedit.css');</script>
+<div id="wrap" class="test_page">
+	<div class="container clearfix">
+		<!-- 作业头部公共start -->
+		<h3 class="hd_tit">$!{obj.hw.name} </h3>
+		<ul class="hd_infos">
+			<li>$!{obj.hw.subjectName}</li>
+			<li>截止时间：$!{dateUtil.formatDateTime($!{obj.hw.endTime})}</li>
+			<li>题数 #ifn($!{obj.hw.examNum},0)</li>
+			<li>交作业人数：<a class="bold" href="#" title="交作业人数$!{obj.hw.handedNum}">$!{obj.hw.handedNum}</a>/$!{obj.hw.needHandNum}</li>
+			<li class="print_btn hidden"><i class="print_icon"></i>打印此页</li>
+		</ul>
+		
+		</ul>
+		<!-- 作业头部公共end -->
+		<div class="main">
+			<!-- 选择题start -->
+			<div class="test_items_con">
+				<!-- 客观题 -->
+				#foreach($exam in $obj.objective)
+					#set($stat=${obj.examStat[${exam.id}]})
+					#set($optsStat=${obj.optionsStat[${exam.id}]})
+					<div class="outitems clearfix">
+					<div class="items">
+						<span class="testflag test_sequence_yet">$!{stat.examOrder}</span>
+						<div class="question_body">
+							$!{exam.content}
+						</div>
+						<div class="question_opreate">
+							<div class="question_infos">
+								<div class="use_num left">引用<span class="orange">#ifn($!{exam.referenceNum},0)</span></div>
+								<div class="accuracy left">正确率：<span class="orange">#ifn($!{exam.correctRate},0)%</span></div>
+								<div class="difficulty left">难易度：<span class="orange">$!{exam.difficultyName}</span></div>						
+								
+								<div class="star_con r"><a title="btn_mini_orange02" href="javascript:;" class="btn60X30orange">发解晰</a></div>
+								<div class="use_num r"><span class="orange">#ifn($!{stat.begNum},0) </span>人求解晰</div>
+							</div>
+						</div>
+						
+						<!-- 显示解析内容 -->
+						<div class="jiexshow">
+							#set($resolvesss="")
+							#set($resolvesss=${obj.examResolve["${stat.id}"]})
+							#foreach($reso in $resolvesss)
+								$reso.content
+							#end
+						</div>
+						<!-- 发解析插件 -->
+						<div class="dtxiala" style="display:none;">						
+							<textarea name="textarea" hwId="$!{obj.hw.id}" hwExamId="$!{stat.id}" style="height:200px"></textarea>
+							<div class="alterbg"><input type="button" class="submitbtn r" name="submit" value="提交" /></div>
+						</div>
+					</div>
+					
+					<div class="testresults">
+						<p class="resu_tr">正确<span class="zq_num">#ifn($!{stat.rightNum},0)</span>人，错误<span class="cw_num">#ifn($!{stat.wrongNum},0)</span>人，正确率<span class="numbfb">#ifn($!{stat.rightRate},0)%</span></p>
+						<ul>
+							<li class="#if(${optsStat['A'].isRight})check#end"><span class="flag chekword">A</span><div class="pross_tr"><div class="planbar"></div>　</div><span class="flag"><b>#ifn($!{optsStat['A'].total},0)</b>人</span><span class="see" statId="$!{optsStat['A'].id}">查看</span><span class="true">&nbsp;</span></li>
+							<li class="#if(${optsStat['B'].isRight})check#end"><span class="flag chekword">B</span><div class="pross_tr"><div class="planbar"></div>　</div><span class="flag"><b>#ifn($!{optsStat['B'].total},0)</b>人</span><span class="see" statId="$!{optsStat['B'].id}">查看</span><span class="true">&nbsp;</span></li>
+							<li class="#if(${optsStat['C'].isRight})check#end"><span class="flag chekword">C</span><div class="pross_tr"><div class="planbar"></div>　</div><span class="flag"><b>#ifn($!{optsStat['C'].total},0)</b>人</span><span class="see" statId="$!{optsStat['C'].id}">查看</span><span class="true">&nbsp;</span></li>
+							<li class="#if(${optsStat['D'].isRight})check#end"><span class="flag chekword">D</span><div class="pross_tr"><div class="planbar"></div>　</div><span class="flag"><b>#ifn($!{optsStat['D'].total},0)</b>人</span><span class="see" statId="$!{optsStat['D'].id}">查看</span><span class="true">&nbsp;</span></li>
+						</ul>
+					</div>
+				</div>
+				#end
+				
+				<!-- 主观题 -->
+				#foreach($exam in $obj.subjective)
+					#set($stat=${obj.examStat[${exam.id}]})
+					#set($optsStat=${obj.optionsStat[${exam.id}]})
+					#set($default=${obj.defaultAnswer[${exam.id}]})
+					<div class="out2items clearfix">
+						<div class="items">
+							<span class="testflag test_sequence">$!{stat.examOrder}</span>
+							<div class="question_body">
+								$!{exam.content}
+							</div>
+							<div class="question_opreate">
+								<div class="question_infos">
+									<div class="use_num left">引用<span class="orange">#ifn($!{exam.referenceNum},0)</span></div>
+									<div class="accuracy left">正确率：<span class="orange">#ifn($!{exam.correctRate},0)%</span></div>
+									<div class="difficulty left">难易度：<span class="orange">$!{exam.difficultyName}</span></div>						
+									
+									<div class="star_con r"><a title="btn_mini_orange02" href="javascript:;" class="btn60X30orange">发解晰</a></div>
+									<div class="use_num r"><span class="orange">#ifn($!{stat.begNum},0) </span>人求解晰</div>
+								</div>
+							</div>
+							<!-- 显示解析内容 -->
+							<div class="jiexshow">
+								#set($resolvesss="")
+								#set($resolvesss=${obj.examResolve["${stat.id}"]})
+								#foreach($reso in $resolvesss)
+									$reso.content
+								#end
+							</div>
+							<div class="dtxiala o">
+								<!-- 发解析插件 -->
+								<textarea name="textarea" hwId="$!{obj.hw.id}" hwExamId="$!{stat.id}" style="height:200px"></textarea>
+								<input type="button" class="submitbtn r" name="submit" value="提交" />
+							</div>
+							
+							<div class="piyue">
+								<div class="answer">
+									<table width="100%" border="0" cellspacing="0" cellpadding="0">
+									  <tr>
+								        <td width="100" valign="top"><div class="name-as">选择答题人阅卷：</div></td>
+									    <td><ul class="mennum">
+									    	#set($stuList=${obj.studentStat[${exam.id}]})
+									    	#foreach($stu in $obj.students)
+									    		#set($info=${stuList[${stu.studentId}]})
+									    		
+									    		#set($className=" tj ")
+									    		#set($score="<i></i>")
+									    		#set($state=1)
+									    		#if($stu.studentId.longValue() == $default.studentId.longValue())
+									    			#set($className="nofen"+$className)
+									    			#set($state=2)
+									    		#elseif($info.isCheck)
+									    			#set($className="hasfen"+$className)
+									    			#set($state=1)
+									    		#else 
+									    			#set($className="anorange"+$className)
+									    			#set($state=2)
+									    		#end
+									    		
+									    		#if($info.isCheck)
+									    			#set($state=1)
+									    			#set($className=$className+"hasfen")
+									    			#set($score="<i>${info.score}分</i>")
+									    		#end
+									    		
+									    		#if($stu.status==102001)
+									    			<li class="bred" hwId="$!{stu.hwId}" sid="$!{stu.studentId}" examId="$!{exam.id}" stuName="$!{stu.studentName}"><b>${stu.studentName}</b><i>(未交)</i></li>
+									    		#else
+									    			<li class="${className}" hwId="$!{stu.hwId}" sid="$!{stu.studentId}" examId="$!{exam.id}" stuName="$!{stu.studentName}"><b>${stu.studentName}</b>${score}</li>
+									    		#end
+									    	#end
+											
+											</ul>
+										</td>
+									  </tr>
+									</table>
+								</div>
+								<div class="personanser">
+									<ul>
+										<li>	
+											<!-- 头像 -->
+											<div class="perimg-as" class="vkouser vkouser_mini hidden" style="display:none;">
+												<div uid="123" class="vkouser vkouser_mini">
+										            <div class="vkouser_avatar"><a target="_blank" title="熙熙" href="#"><img width="30" height="30" alt="熙熙" src="http://static.vko.cn/vko/images/pic/vkouser_mini.jpg"><i class="vkouser_mask"></i></a></div>
+										            <div class="vkouser_name"><a target="_blank" title="熙熙" href="#">熙熙</a></div>
+										            <div class="vkouser_school">微课大学</div>
+										        </div>
+											</div>
+											
+											<div class="main-as" style="padding-left:30px;">
+												<p><span>#if(${default.realName})<b>${default.realName}</b>的答案#end</span></p>
+												<p class="result-as">$!{default.answer}</p>
+												<div class="complete-as">
+													#if($state==2)
+														#if(${obj.hw.status} != 101003)
+														<span><input type="text" name="" width="110" height="30" value="#ifn(${info.score}, '不超过100分')" class="answerscore" /></span><span><a class="btn50X30orange" href="javascript:;" title="确定">确定</a></span>
+														#end
+													#end
+													<span class="r">此题已完成阅卷<b class="reviewedNum">$!{stat.reviewedNum}</b>人，未阅卷<b class="unreviewNum">$!{stat.unreviewNum}</b>人</span>
+		
+												</div>
+											</div>
+										</li>
+									</ul>								
+								</div>
+							</div>
+						</div>
+						<div class="testresults">
+							<div class="stics-stano">
+								*该题为主观题，需教师人工修改
+							</div>
+						</div>
+					</div>
+				#end
+				
+			</div>
+			
+			<!-- 简答题end -->
+			<div class="opreate_bar">
+				#if(${obj.hw.status} != 101003)
+					<input class="test_submit" hwId="$!{obj.hw.id}" act="${act}" type="submit" value="完成批阅"/>
+				#end
+			</div>
+		</div>
+		
+		
+	</div>
+</div>
+<script type="text/javascript">seajs.use('vkoweb/js/web/homework/judge');</script>
+${httpInclude.include("/WEB-INF/share/footer_v6.jsp")}

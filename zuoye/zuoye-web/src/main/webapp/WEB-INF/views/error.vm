@@ -1,0 +1,22 @@
+${httpInclude.include("/WEB-INF/share/head_v6.jsp")}
+<script type="text/javascript">vkoFileLoader.load('/vko/css/homework/homework.css');</script>
+<div id="wrap" class="homework_page">
+	<div class="container clearfix homeerror">
+
+		<div class="herror">
+			#if($message)
+				${message}
+			#else
+				亲，出错了，休息一下下吧！
+			#end
+			<br/>
+			<br/>
+			#if($referer)
+				<a href="${referer}">点击此处返回</a>
+			#else
+				<a href="javascript:history.go(-1);">点击此处返回</a>
+			#end
+		</div>
+	</div>
+</div>
+${httpInclude.include("/WEB-INF/share/footer_v6.jsp")}

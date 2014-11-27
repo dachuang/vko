@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.vko.zuoye.mapper.TikuMapper">
+	<select id="getExamTypeById" resultType="smartMap">
+		select id,typeName,typeId from tk_exams where id in
+		<foreach collection="examIds" item="examId" open="(" close=")" separator=",">
+			${examId}
+		</foreach>
+	</select>
+	<select id="getPageFromTkExam" resultType="smartMap">
+		select id,content,referenceNum,sourceName,sourceUrl,answerNum,optionsCount,
+		correctRate,difficultyName,objective,typeId,referenceNum,typeName
+		from tk_exams
+		<where>
+			<if test="param.xueDuanId > 0">
+				and semesterId=#{param.xueDuanId}
+			</if>
+			<if test="param.subjectId > 0">
+				and subjectId=#{param.subjectId}
+			</if>
+			and status=2
+			<if test="param.types!=null and param.types.length>0">
+				and
+				<foreach collection="param.types" item="type" open="(" close=")" separator=" or ">
+					typeId = ${type}
+				</foreach>
+			</if>
+			<if test="param.k1s!=null and param.k1s.length>0">
+				and
+				<foreach collection="param.k1s" item="k1" open="(" close=")" separator=" or ">
+					k1 like '%,${k1},%'
+				</foreach>
+			</if>
+			<if test="param.k2s!=null and param.k2s.length>0">
+				and
+				<foreach collection="param.k2s" item="k2" open="(" close=")" separator=" or ">
+					k2 like '%,${k2},%'
+				</foreach>
+			</if>
+			<if test="param.k3s!=null and param.k3s.length>0">
+				and
+				<foreach collection="param.k3s" item="k3" open="(" close=")" separator=" or ">
+					k3 like '%,${k3},%'
+				</foreach>
+			</if>
+			<if test="param.sort > 0">
+				<if test="param.sort==100">order by referenceNum desc</if>
+				<if test="param.sort==101">order by referenceNum asc</if>
+				<if test="param.sort==200">order by difficulty desc</if>
+				<if test="param.sort==201">order by difficulty asc</if>
+				<if test="param.sort==300">order by correctRate desc</if>
+				<if test="param.sort==301">order by correctRate asc</if>
+				<if test="param.sort==400">order by id desc</if>
+				<if test="param.sort==401">order by id asc</if>
+			</if>
+		</where>
+	</select>
+	<select id="getExamBaseInfoById" resultType="smartMap" >
+		select id,referenceNum,sourceName,sourceUrl,optionsCount,correctRate,difficultyName,objective,typeId,
+		typeName,subjectId,subjectName
+		from
+		tk_exams where id =#{examId}
+	</select>
+	<select id="getExamsContent" resultType="smartMap" parameterType="java.util.List">
+		select id,content,referenceNum,sourceName,sourceUrl,answerNum,optionsCount,correctRate,
+		difficultyName,objective,typeId,typeName,answer
+		from
+		tk_exams where id in
+		<foreach collection="examIds" item="examId" open="(" close=")" separator=" , ">
+			${examId}
+		</foreach>
+	</select>
+	<select id="getExamsObjective" resultType="smartMap" parameterType="java.util.List">
+		select id,objective
+		from
+		tk_exams where id in
+		<foreach collection="examIds" item="examId" open="(" close=")" separator=" , ">
+			${examId}
+		</foreach>
+	</select>
+	<select id="getExamsAnswers" resultType="smartMap" parameterType="java.util.List">
+		select id,answer,objective
+		from
+		tk_exams where id in
+		<foreach collection="examIds" item="examId" open="(" close=")" separator=" , ">
+			${examId}
+		</foreach>
+	</select>
+	<select id="getExamContent" resultType="smartMap">
+		select id,content from tk_exams where id=#{examId}
+	</select>
+	<update id="updateReferenceNumByExamIds">
+		update tk_exams set referenceNum=(case when referenceNum is null then 1 else referenceNum+1 end)
+		where id in
+		<foreach collection="examIds" item="examId" open="(" close=")" separator=" , ">
+			${examId}
+		</foreach>
+	</update>
+	<select id="selectIsAddedMyFalse" resultType="int">
+		select 1 from tk_exams_error where gmt_create_id=#{studentId} and examsId=${examId}
+	</select>
+	<insert id="insertMyFlase" parameterType="map">
+		insert into tk_exams_error(gmt_create_id,gmt_created,examsId,reason,subjectId,subjectName,typeId,typeName,source)
+		values(#{gmt_create_id},#{gmt_created},#{examsId},#{reason},#{subjectId},#{subjectName},#{typeId},#{typeName},#{source})
+	</insert>
+	<select id="selectResolveByExamId" resultType="smartMap">
+		select content,examsId,type from tk_exams_resolve where examsId=#{examId} and status=2 order by type asc
+	</select>
+	<select id="selectK2ByExamId" resultType="smartMap">
+		select id,k2 from tk_exams where id=#{examId}
+	</select>
+	<select id="selectExamOPtions" resultType="tkExamOptions">
+		select id,examId,selection,orderNum,num from tk_exam_options_record where examId=#{examId} order by orderNum asc
+	</select>
+</mapper>

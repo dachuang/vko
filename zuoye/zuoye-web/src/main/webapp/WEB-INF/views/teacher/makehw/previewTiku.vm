@@ -1,0 +1,64 @@
+${httpInclude.include("/WEB-INF/share/head_v6.jsp")}
+
+<script type="text/javascript">
+	vkoFileLoader.load('/vko/css/test/search.css');
+</script>
+<style type="text/css">
+.reply_con dd label{cursor:default}
+</style>
+<div id="wrap" class="test_page">
+	<div class="container clearfix">
+		<!-- 作业头部公共start -->
+		<h3 class="hd_tit">组合作业预览</h3>
+		<ul class="hd_infos">
+			<li>发作业时间：$!{dateUtil.formatDateTime(${dateTool.toDate('yyyy-MM-dd hh:mm:ss',$startTime)})}</li>
+			<li>题数：#ifn(${examList.size()},'0')</li>
+			<li>截止时间：$!{dateUtil.formatDateTime(${dateTool.toDate('yyyy-MM-dd hh:mm:ss',$endTime)})}</li>
+			##<li>交作业人数：#ifn(${homework.handedNum},0)/#ifn(${homework.needHandNum},0)</li>
+		</ul>
+		<!-- 作业头部公共end -->
+		<div class="main" style="width: 970px;">
+			<!-- 选择题start -->
+			#set($count=0)
+			#foreach($p in $examList)
+			<div class="test_items_con">
+				#set($count=$count+1)
+				<div class="items">
+					<span class="testflag test_sequence">$count</span>
+					<div class="question_body o">
+						$!{p.content}
+					</div>
+					<div class="question_result_con">
+            			<div class="question_opreate">
+						#if(${p.objective} and ${p.optionsCount})
+						<dl class="rcf_all reply_con flag">
+							<dt>请作答：</dt>
+							#foreach($i in [1 .. ${p.optionsCount}])
+								#set($char=64+$i)
+								#set($value=$vkoUtil.Int2Char($char))
+								#if(${p.typeId}==351)
+									<dd><label><input type="radio" onclick="this.checked=!this.checked;" name="answer_${p.id}" value="$value"/>$value</label></dd>
+								#else
+									<dd><label><input type="checkbox" onclick="this.checked=!this.checked;" name="answer_${p.id}" value="$value"/>$value</label></dd>
+								#end
+							#end
+						</dl>
+						#else
+						<dl class="rcf_all reply_con_textarea">
+							<dt>请作答：</dt>
+							<dd>
+								<textarea name="answer_${p.id}" readonly="readonly" class="reply_textarea"></textarea>	
+							</dd>
+						</dl>
+						#end
+					</div>
+                    </div>
+				</div>
+			</div>
+			#end
+			<!-- 选择题end -->
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+${httpInclude.include("/WEB-INF/share/footer_v6.jsp")}

@@ -1,0 +1,1 @@
+${currentName} 同意你加入 ${groupName} 群

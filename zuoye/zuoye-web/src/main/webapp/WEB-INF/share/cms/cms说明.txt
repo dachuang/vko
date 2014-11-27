@@ -1,0 +1,7 @@
+<cms:date uid='2013-12-25 11:10:10'/> --日期格式转换
+<cms:user st='small' uid='267'/> --用户小头像30*30
+<cms:user st='middle' uid='267'/> --用户中头像50*50
+<cms:user st='big' uid='267'/> --用户大头像100*100
+<cms:user st='name' uid='267'/>--用户名字+链接
+<cms:url st='类别' uid='唯一标识'/>--类别  这个自己定义参见UrlCms
+<cms:group st='summary' gid='唯一标识'/>--群的摘要信息

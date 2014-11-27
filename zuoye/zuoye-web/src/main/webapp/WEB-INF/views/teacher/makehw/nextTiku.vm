@@ -1,0 +1,92 @@
+${httpInclude.include("/WEB-INF/share/head_v6.jsp")}
+<style type="text/css">
+	body{ background-color: #dfeef3}
+</style>
+<script type="text/javascript">
+vkoFileLoader.load('/vko/css/homework/createhomework.css');	//修改为所需css文件路径
+</script>
+<div id="wrap">
+	<div class="container clearfix">
+		<div class="create-mob-hw">
+		<form action="stiku.html" method="post" id="saveform">
+			<dl>
+				<dt><span class="title">生成作业</span></dt>
+				<dd style="padding-top:20px">
+				<span class="nametit">作业名称：</span>
+				<span><input type="text" style="width: 200px;" name="name" /></span>
+				</dd>
+				<dd>
+				<span class="nametit">发布班级：</span>
+				#foreach($g in $groupMap.entrySet())
+				<span class="padr8"><b class="padr4">
+				<input type="checkbox" name="groupId" value="${g.getKey()}"></b>${g.getValue()}</span>
+				#end
+				</dd>
+				<dd><div class="l">
+				<span class="nametit">用时限制：</span>
+				<span>
+				<input type="text" name="hour" id="hour" class="w40" value="小时" /></span> 
+				<span>
+				<input type="text" name="minute" id="minute" class="w40" value="分钟"/></span>
+				</div>
+				<div class="l"><span class="one h">1小时</span><span class="two h">2小时</span></div></dd>
+				<dd style="padding-bottom:20px"><span class="nametit">发缴时间：</span>
+				<span><input type="text" name="startTime" placeholder="输入发作业时间" readonly="readonly" class="ipt_text timedpicker"/></span>--<span>
+				<input type="text" name="endTime" placeholder="输入收缴作业时间" readonly="readonly" class="ipt_text timedpicker"/></span></dd>
+			</dl>
+		</form>
+			<div class="homeworkmain">
+				<p>本期作业共计<span>${examList.size()}</span>道题</p>
+				<div class="clear"></div>
+				<div class="homemleft">
+					<ul>
+					#foreach($p in $examList)
+						<li>
+							<div class="topic-main">
+								${p.content}
+							</div>
+							<div class="topicfoot">
+								<p>引用：<span>#ifn(${p.referenceNum},0)</span>次</p>
+								<p>正确率：<span>$!{p.correctRate}%</span></p>
+								<p>难易度：<span>$!{p.difficultyName}</span></p>
+								##<a href="#" eid="" etype="" class="btn_blue01 r">取消</a>
+								#if(${select.contains(${p.id.toString()})})
+									<span etype="${p.typeName}" eid="${p.id}" class="btn_blue01 r">取消加入</span>
+								#else
+									<span etype="${p.typeName}" eid="${p.id}" class="select_btn r">加入选题栏</span>
+								#end
+							</div>
+						</li>
+					#end
+					</ul>
+					<div class="next-cmh">
+					<a class="bbtn120X40" href="javascript:;" title="上一步">上一步</a>
+					<span class="bbtn100X40" href="javascript:;" title="预览">预览</span>
+					<a class="bbtn140X40 r" href="javascript:;" title="发布作业">发布作业</a>
+					</div>
+				</div>
+				<div class="homemright">
+					<div class="assemblytk">
+							<div class="basket_con">
+								<div class="question_basket">	
+									<h4>选题栏</h4>
+									<div class="emptyBox" style="display: none;">你还没有选择试题</div>
+								
+								</div>
+								<div style="margin-top:8px" class="select_question_opreate">
+									<a title="发布作业" href="javascript:;" class="oragne2X2-css">发布作业</a>
+									
+								</div>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+seajs.use('vkoweb/js/web/homework/next_tiku');
+seajs.use('vkoweb/js/web/homework/mcreate');
+</script>
+${httpInclude.include("/WEB-INF/share/footer_v6.jsp")}

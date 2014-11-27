@@ -1,0 +1,122 @@
+${httpInclude.include("/WEB-INF/share/head_v6.jsp")}
+<script type="text/javascript">
+seajs.use('vkoweb/css/tiku/tiku.css');
+</script>
+
+<input type="hidden" id="hwId" name="hwId" value='$!{stHW.hwId}'>
+<div id="wrap">
+	<div class="container">
+		<div class="tiku_main">
+			<!-- 头部开始  -->
+			<div class="tiku_bg">
+				<h2>${homework.name}</h2>
+				<p>
+					<span>发作业时间：${dateUtil.formatDateTime($!{homework.startTime})}</span>
+					<span>题数：#ifn(${homework.examNum},'0')</span>
+					<span>截止时间：${dateUtil.formatDateTime($!{homework.endTime})}</span>
+					<span>交作业人数：#ifn(${homework.handedNum},0)/#ifn(${homework.needHandNum},0)</span>
+				</p>
+			</div>
+			<!-- 头部结束  -->
+
+			<div id="tiku_main_main">
+				<div class="everytk_tmm">
+					#set($count=0)
+					#foreach($p in ${examList})
+						#set($count=$count+1)
+					<div class="st_tmm">
+						<div class="shiti_tmm">
+							<div class="y_quan #if($count==1)zq_quan#end">$count</div>
+							 $!{p.content}
+						</div>
+						<div class="clear"></div>
+						<div class="daan_tmm o">
+							<div class="daanqu">
+								#if(${p.objective} and ${p.optionsCount})
+									<p class="da_daq">
+									#if(${p.answer.isRight})
+										<span class="zq_daq">我的答案：<b>$!{p.answer.answer}</b></span>
+									#else
+										<span class="cw_daq">我的答案：<b>$!{p.answer.answer}</b></span>
+										<span class="zq_daq">正确答案：<b>$!{p.answer.rightAnswer}</b></span>
+									#end
+									</p>
+								#else
+									<span class="zq_daq">我的答案：</span>
+									$!{p.answer.answer}
+								#end
+									
+								
+								<div class="o_say o">
+								#if(${p.option} and ${p.option.size()}>0)
+									<p>别人都在选什么</p>
+									#foreach($r in ${p.option} )
+									<p>
+										<span>${r.total}人</span>选${r.options}
+									</p>
+									#end
+								#end
+								</div>
+								
+							</div>
+							<div class="stuadd">
+								<span eid="${p.id}" class="adderr h">加入错题本</span>
+								<span eid="${p.id}" class="analysisBtn">查看解析<i class="btn_arrowr_t"></i></span>
+							</div>
+						</div>
+						##解析开始
+						#if(${p.objective})
+							#getResolve(${p},false)
+						#else
+							#getResolve(${p},true)
+						#end
+					</div>
+					#end
+					
+				</div>
+
+
+				<div id="fenshu">
+					<div class="time_cfs">
+						<div class="chengji_fs ">
+						<span class="jt_cg_fs"><img src="${static}/vko/images/pic/jiantou.png" /></span>
+							<div class="num_fs"  style="text-align: left;padding-left: 20px;">
+								<p class="cj1_fs"><b>成绩：</b>
+								<span class="colred">客#ifn(${stHW.objectiveRate},0)%,主#ifn(${stHW.subjectiveRate},0)%</span>　　
+								<p class="cj1_fs"><b>用时：${useTime}</b>
+							</div>
+							<div class="tihao_fs2 o">
+								<h5>题目序号</h5>
+								<ul>
+								#set($count=0)
+								#foreach($p in ${examList})
+									#set($count=$count+1)
+									#if(${p.answer.isRight})
+										<li><a href="#a${count}">$count</a></li>
+									#else
+										<li class="bj_bj"><a href="#a${count}" >$count</a></li>
+									#end
+								#end
+								</ul>
+							</div>
+						</div>
+						
+					</div>					
+				</div>
+
+			</div>
+			
+		 <div class="course_comment">
+				<div class="hd_tit">
+					<h4>评论</h4>(<span class="total vkoCommentsNum" type="7" objId="$!{stHW.hwId}">0</span>)
+				</div>
+				<div class="comment_con vkoComments" objId="$!{stHW.hwId}" type="7">
+				评论内容
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">seajs.use('vkoweb/js/web/homework/view_tiku');</script>
+${httpInclude.include("/WEB-INF/share/footer_v6.jsp")}

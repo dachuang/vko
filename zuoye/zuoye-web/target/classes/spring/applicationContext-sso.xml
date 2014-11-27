@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                                            http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.1.xsd
+                                            http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+	<bean name="JedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxActive" value="8" />
+		<property name="testOnBorrow" value="true" />
+	</bean>
+
+	<bean name="ShardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">
+		<constructor-arg index="0" ref="JedisPoolConfig" />
+		<constructor-arg index="1" type="java.util.List">
+			<list>
+				<bean class="redis.clients.jedis.JedisShardInfo">
+					<constructor-arg type="java.lang.String" value="${redisServer}" />
+					<constructor-arg type="int" value="6380" />
+					<constructor-arg type="int" value="10000" />
+				</bean>
+				<bean class="redis.clients.jedis.JedisShardInfo">
+					<constructor-arg type="java.lang.String" value="${redisServer}" />
+					<constructor-arg type="int" value="6381" />
+					<constructor-arg type="int" value="10000" />
+				</bean>
+				<bean class="redis.clients.jedis.JedisShardInfo">
+					<constructor-arg type="java.lang.String" value="${redisServer}" />
+					<constructor-arg type="int" value="6382" />
+					<constructor-arg type="int" value="10000" />
+				</bean>
+
+			</list>
+		</constructor-arg>
+	</bean>
+	<bean name="RedisProxyFactory" class="cn.vko.zuoye.service.sso.RedisProxyFactory">
+		<constructor-arg index="0" ref="ShardedJedisPool" />
+	</bean>
+	<!-- 单点登陆配置 -->
+</beans>

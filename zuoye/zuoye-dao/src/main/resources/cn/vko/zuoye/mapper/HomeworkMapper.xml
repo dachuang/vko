@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.vko.zuoye.mapper.HomeworkMapper">
+
+	<select id="selectByPrimaryKey" resultType="homework" parameterType="java.lang.Long">
+		select
+		id, name, type, startTime, endTime,
+		createTime, subjectiveNum, objectiveNum, examNum,
+		needHandNum,
+		handedNum, notFinishNum,
+		subjectId, subjectName,
+		teacherId, teacherName,
+		groupId, groupName, timeout, remark, status,
+		elapse, rightRate,
+		avgScore, hasResolve,
+		commentTimes
+		from zy_homework
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="selectDistributionHW" resultType="homework">
+		select id,startTime,endTime from zy_homework where distribution=#{status}
+	</select>
+	<select id="selectHWForDistribution" resultType="homework">
+		select name,subjectiveNum,objectiveNum,examNum,groupId,teacherId,subjectId, subjectName
+		from zy_homework where id=#{id} limit 1
+	</select>
+	
+	<!-- 对此次作业的整体统计 -->
+	<select id="selectStat" resultType="smartMap">
+		select name,endTime,groupName,handedNum,notFinishNum,needHandNum,examNum,elapse,rightRate,avgScore,subjectiveNum,objectiveNum 
+		from zy_homework where id=#{id} limit 1
+	</select>
+	
+	<update id="updateHWDistribution" >
+		UPDATE zy_homework SET distribution =#{status} where id=#{id}
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from zy_homework
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<select id="selectHWForDoHW" resultType="homework">
+		select name,examNum,endTime,needHandNum,handedNum,type,status,distribution,startTime,remark
+		from zy_homework where id=#{id}
+	</select>
+	<insert id="insert" parameterType="cn.vko.zuoye.entity.Homework" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		zy_homework (name, type, startTime,
+		endTime, createTime, subjectiveNum,
+		objectiveNum, examNum, needHandNum,
+		handedNum,
+		notFinishNum, subjectId,
+		subjectName, teacherId, teacherName,
+		groupId, groupName, timeout,
+		remark, status, elapse,
+		rightRate, avgScore, hasResolve,
+		commentTimes,distribution)
+		values (#{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},
+		#{startTime,jdbcType=TIMESTAMP},
+		#{endTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP},
+		#{subjectiveNum,jdbcType=INTEGER},
+		#{objectiveNum,jdbcType=INTEGER}, #{examNum,jdbcType=INTEGER},
+		#{needHandNum,jdbcType=INTEGER},
+		#{handedNum,jdbcType=INTEGER}, #{notFinishNum,jdbcType=INTEGER},
+		#{subjectId,jdbcType=BIGINT},
+		#{subjectName,jdbcType=VARCHAR}, #{teacherId,jdbcType=BIGINT},
+		#{teacherName,jdbcType=VARCHAR},
+		#{groupId,jdbcType=BIGINT}, #{groupName,jdbcType=VARCHAR}, #{timeout,jdbcType=BIGINT},
+		#{remark,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{elapse,jdbcType=INTEGER},
+		#{rightRate,jdbcType=DECIMAL},
+		#{avgScore,jdbcType=DECIMAL}, #{hasResolve,jdbcType=BIT},
+		#{commentTimes,jdbcType=INTEGER},#{distribution})
+	</insert>
+	<insert id="insertSelective" parameterType="cn.vko.zuoye.entity.Homework" useGeneratedKeys="true" keyProperty="id">
+		insert into zy_homework
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				name,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="startTime != null">
+				startTime,
+			</if>
+			<if test="endTime != null">
+				endTime,
+			</if>
+			<if test="createTime != null">
+				createTime,
+			</if>
+			<if test="subjectiveNum != null">
+				subjectiveNum,
+			</if>
+			<if test="objectiveNum != null">
+				objectiveNum,
+			</if>
+			<if test="examNum != null">
+				examNum,
+			</if>
+			<if test="needHandNum != null">
+				needHandNum,
+			</if>
+			<if test="handedNum != null">
+				handedNum,
+			</if>
+			<if test="notFinishNum != null">
+				notFinishNum,
+			</if>
+			<if test="subjectId != null">
+				subjectId,
+			</if>
+			<if test="subjectName != null">
+				subjectName,
+			</if>
+			<if test="teacherId != null">
+				teacherId,
+			</if>
+			<if test="teacherName != null">
+				teacherName,
+			</if>
+			<if test="groupId != null">
+				groupId,
+			</if>
+			<if test="groupName != null">
+				groupName,
+			</if>
+			<if test="timeout != null">
+				timeout,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="elapse != null">
+				elapse,
+			</if>
+			<if test="rightRate != null">
+				rightRate,
+			</if>
+			<if test="avgScore != null">
+				avgScore,
+			</if>
+			<if test="hasResolve != null">
+				hasResolve,
+			</if>
+			<if test="commentTimes != null">
+				commentTimes,
+			</if>
+			<if test="distribution != null">
+				distribution,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="startTime != null">
+				#{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				#{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="subjectiveNum != null">
+				#{subjectiveNum,jdbcType=INTEGER},
+			</if>
+			<if test="objectiveNum != null">
+				#{objectiveNum,jdbcType=INTEGER},
+			</if>
+			<if test="examNum != null">
+				#{examNum,jdbcType=INTEGER},
+			</if>
+			<if test="needHandNum != null">
+				#{needHandNum,jdbcType=INTEGER},
+			</if>
+			<if test="handedNum != null">
+				#{handedNum,jdbcType=INTEGER},
+			</if>
+			<if test="notFinishNum != null">
+				#{notFinishNum,jdbcType=INTEGER},
+			</if>
+			<if test="subjectId != null">
+				#{subjectId,jdbcType=BIGINT},
+			</if>
+			<if test="subjectName != null">
+				#{subjectName,jdbcType=VARCHAR},
+			</if>
+			<if test="teacherId != null">
+				#{teacherId,jdbcType=BIGINT},
+			</if>
+			<if test="teacherName != null">
+				#{teacherName,jdbcType=VARCHAR},
+			</if>
+			<if test="groupId != null">
+				#{groupId,jdbcType=BIGINT},
+			</if>
+			<if test="groupName != null">
+				#{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="timeout != null">
+				#{timeout,jdbcType=BIGINT},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="elapse != null">
+				#{elapse,jdbcType=INTEGER},
+			</if>
+			<if test="rightRate != null">
+				#{rightRate,jdbcType=DECIMAL},
+			</if>
+			<if test="avgScore != null">
+				#{avgScore,jdbcType=DECIMAL},
+			</if>
+			<if test="hasResolve != null">
+				#{hasResolve,jdbcType=BIT},
+			</if>
+			<if test="commentTimes != null">
+				#{commentTimes,jdbcType=INTEGER},
+			</if>
+			<if test="distribution != null">
+				#{distribution,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="cn.vko.zuoye.entity.Homework">
+		update zy_homework
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="startTime != null">
+				startTime = #{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				endTime = #{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				createTime = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="subjectiveNum != null">
+				subjectiveNum = #{subjectiveNum,jdbcType=INTEGER},
+			</if>
+			<if test="objectiveNum != null">
+				objectiveNum = #{objectiveNum,jdbcType=INTEGER},
+			</if>
+			<if test="examNum != null">
+				examNum = #{examNum,jdbcType=INTEGER},
+			</if>
+			<if test="needHandNum != null">
+				needHandNum = #{needHandNum,jdbcType=INTEGER},
+			</if>
+			<if test="handedNum != null">
+				handedNum = #{handedNum,jdbcType=INTEGER},
+			</if>
+			<if test="notFinishNum != null">
+				notFinishNum = #{notFinishNum,jdbcType=INTEGER},
+			</if>
+			<if test="subjectId != null">
+				subjectId = #{subjectId,jdbcType=BIGINT},
+			</if>
+			<if test="subjectName != null">
+				subjectName = #{subjectName,jdbcType=VARCHAR},
+			</if>
+			<if test="teacherId != null">
+				teacherId = #{teacherId,jdbcType=BIGINT},
+			</if>
+			<if test="teacherName != null">
+				teacherName = #{teacherName,jdbcType=VARCHAR},
+			</if>
+			<if test="groupId != null">
+				groupId = #{groupId,jdbcType=BIGINT},
+			</if>
+			<if test="groupName != null">
+				groupName = #{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="timeout != null">
+				timeout = #{timeout,jdbcType=BIGINT},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="elapse != null">
+				elapse = #{elapse,jdbcType=INTEGER},
+			</if>
+			<if test="rightRate != null">
+				rightRate = #{rightRate,jdbcType=DECIMAL},
+			</if>
+			<if test="avgScore != null">
+				avgScore = #{avgScore,jdbcType=DECIMAL},
+			</if>
+			<if test="hasResolve != null">
+				hasResolve = #{hasResolve,jdbcType=BIT},
+			</if>
+			<if test="commentTimes != null">
+				commentTimes = #{commentTimes,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="cn.vko.zuoye.entity.Homework">
+		update zy_homework
+		set name = #{name,jdbcType=VARCHAR},
+		type =
+		#{type,jdbcType=INTEGER},
+		startTime = #{startTime,jdbcType=TIMESTAMP},
+		endTime = #{endTime,jdbcType=TIMESTAMP},
+		createTime = #{createTime,jdbcType=TIMESTAMP},
+		subjectiveNum = #{subjectiveNum,jdbcType=INTEGER},
+		objectiveNum =
+		#{objectiveNum,jdbcType=INTEGER},
+		examNum = #{examNum,jdbcType=INTEGER},
+		needHandNum = #{needHandNum,jdbcType=INTEGER},
+		handedNum = #{handedNum,jdbcType=INTEGER},
+		notFinishNum = #{notFinishNum,jdbcType=INTEGER},
+		subjectId =
+		#{subjectId,jdbcType=BIGINT},
+		subjectName = #{subjectName,jdbcType=VARCHAR},
+		teacherId = #{teacherId,jdbcType=BIGINT},
+		teacherName = #{teacherName,jdbcType=VARCHAR},
+		groupId = #{groupId,jdbcType=BIGINT},
+		groupName =
+		#{groupName,jdbcType=VARCHAR},
+		timeout = #{timeout,jdbcType=BIGINT},
+		remark = #{remark,jdbcType=VARCHAR},
+		status =
+		#{status,jdbcType=INTEGER},
+		elapse = #{elapse,jdbcType=INTEGER},
+		rightRate = #{rightRate,jdbcType=DECIMAL},
+		avgScore =
+		#{avgScore,jdbcType=DECIMAL},
+		hasResolve = #{hasResolve,jdbcType=BIT},
+		commentTimes = #{commentTimes,jdbcType=INTEGER}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<!-- 更新作业是否有解析 -->
+	<update id="updateHasResolveById">
+		update zy_homework
+		set hasResolve = #{hasResolve}
+		where id = #{id}
+	</update>
+	
+	<!-- 更新作业的avgScore(主观题平均正答率), status=3（已判） -->
+	<update id="updateAvgScoreAndStatus">
+		UPDATE zy_homework h 
+		SET h.avgScore = (SELECT IFNULL(SUM(sh.subjectiveRate)/COUNT(1),0) AS avgRate 
+		FROM zy_student_homework sh WHERE sh.hwId = h.id), h.status=#{status} 
+		WHERE h.id=#{id}
+	</update>
+
+	<!-- 查询作业是否有解析 -->
+	<select id="selectHasResolveById" resultType="java.lang.Boolean">
+		select hasResolve
+		from zy_homework
+		where id = #{id}
+	</select>
+	
+	 <select id="selectHomeWork" resultType="homework">
+  		select id,name,subjectId,subjectName,status,endTime,createTime,distribution,rightRate,avgScore 
+  		from zy_homework 
+  		where groupId=#{groupId}
+  		<if test="status &gt; 0">
+  			and status=#{status} 
+  		</if>
+  		<if test="subjectId &gt; 0">
+  			and subjectId=#{subjectId}
+  		</if>
+  	</select>
+  	
+  	<select id="selectTeacherHomeWork" resultType="homework">
+  		select id,name,subjectId,subjectName,status,endTime,createTime,distribution,rightRate,avgScore,subjectiveNum,objectiveNum,type  
+  		from zy_homework 
+  		where teacherId=#{teacherId} and groupId=#{groupId}
+  		<if test="status &gt; 0">
+  			and status=#{status}
+  		</if>
+  	</select>
+  	
+  	<!-- 查询已发作业和待判作业的数量 -->
+  	<select id="selectUnPanNum" resultType="java.lang.Integer">
+  		select	count(1) from zy_homework where groupId=#{groupId} and ( status = 1010001 or status= 1010002)
+  	</select>
+
+	<update id="updateCommentTimes">
+		update zy_homework set commentTimes=(case when commentTimes is null then 1 else commentTimes+1 end)
+		where id =#{id}
+	</update>
+	
+	<select id="selectHomeWorkForHand" resultType="homework">
+		select id,name,endTime,needHandNum,handedNum  
+  		from zy_homework 
+  		where id=#{id}
+	</select>
+</mapper>

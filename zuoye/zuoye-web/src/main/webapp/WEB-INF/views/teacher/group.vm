@@ -1,0 +1,279 @@
+${httpInclude.include("/WEB-INF/share/head_v6.jsp")}
+<script type="text/javascript">
+vkoFileLoader.load('/vko/css/homework/group.css');
+</script>
+<div id="wrap" class="groupManage">
+	<div class="container clearfix">
+		<div class="group_class group_hd">
+			<div class="vkogroup_avatar_large">
+				<img src="http://static.vko.cn/vko/images/other/avatar100.jpg" width="120" height="120" alt="星座运程独一无二">
+			</div>
+			<div class="group_banner">
+				<img src="http://static.vko.cn/vko/images/pic/group/groupHdBg4.png" width="1000" height="255" alt="星座运程独一无二">
+			</div>
+			<div class="group_inofs">
+				<div class="leftSide">
+					<div class="group_name"><a href="#" title="吃货集中营">星座运程独一无二货集中营</a><i class="qInterest_icon"></i></div>
+					<div class="group_url">http://gsyb.vko.cn</div>
+					<div class="group_manage">创建人：<a href="#" title="陈鹏">陈鹏</a></div>
+					<div class="group_member">成  员：<a href="#" title="吃货集中营">58人</a></div>
+					<div class="invite"><i class="invite_icon"></i><a href="#" title="邀请好友">邀请好友</a></div>
+				</div>
+				<div class="group_desc">
+					<span class="tit">群介绍：</span>怪不得人人渴望被爱，那种感觉的确幸福，心中充实得鼓鼓，像极小的时候，自幼稚园课室放学出来，知道妈妈一定在门外        等，门一打开，便飞奔出来：“妈妈！”扑到母亲怀中，那便
+        是被爱的感觉。一生中可遇不可求，但是，终于得到，泪盈于睫。
+				</div>
+				
+				<%-- 菜单栏start --%>
+				<div class="menu_bar">
+					<ul>
+						<li class="allBtn"><i class="all_icon"></i><a href="#" title="全部">全部</a></li>
+						<li class="current postBtn"><i class="post_icon"></i><a href="#" title="话题">话题</a></li>
+						<li class="perfectBtn"><i class="perfect_icon"></i><a href="#" title="精品">精品</a></li>
+						<li class="picBtn"><i class="pic_icon"></i><a href="#" title="图片">图片</a></li>
+						<li class="videoBtn"><i class="video_icon"></i><a href="#" title="视频">视频</a></li>
+						<li class="classBtn"><i class="class_icon"></i><a href="#" title="班级作业">班级作业</a></li>
+						<!-- <li class="voteBtn"><i class="vote_icon"></i><a href="#" title="投票">投票</a></li> -->
+					</ul>
+					<a class="publish_btn" href="#" title="发表新话题">发表新话题</a>
+				</div>
+				<%-- 菜单栏end --%>
+			</div>
+		</div>
+		
+		<%-- 主题内容 start --%>
+		<div class="group_main">
+			<div class="main_hd">
+				<a href="#">全部</a><a href="#">语文</a><a href="#">数学</a><a href="#">英语</a><a href="#">物理</a><a href="#">化学</a><a href="#">生物</a><a href="#">历史</a><a href="#">地理</a><a href="#">政治</a>  
+			</div>
+			
+			<div class="table_show">	
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="homelist-s">
+				  <tr>
+				    <th width="60" align="center">学科</th>
+				    <th width="80" align="center">时间
+				      </td>
+				    <th align="center" style="text-align:left">作业名称</td>
+				    
+				    <th width="140" align="center">操作</th>
+				  <tr>
+				    <td width="60">英语</td>
+				    <td width="80">2014-04-06</td>
+				    <td style="text-align:left" class="workname2">我的作业名称</td>
+				    <td width="140"><a href="#">判作业</a></td>
+				  </tr>
+				  <tr>
+				    <td width="60">英语</td>
+				    <td width="80">2014-04-06</td>
+				    <td style="text-align:left" class="workname2">我的作业名称</td>
+				    <td width="140"><a href="#">判作业</a></td>
+				  </tr>
+				  <tr>
+				    <td width="60">英语</td>
+				    <td width="80">2014-04-06</td>
+				    <td style="text-align:left" class="workname2">我的作业名称</td>
+				    <td width="140"><a href="#">判作业</a></td>
+				  </tr>
+				  <tr>
+				    <td width="60">英语</td>
+				    <td width="80">2014-04-06</td>
+				    <td style="text-align:left" class="workname2">我的作业名称</td>
+				    <td width="140"><a href="#">判作业</a></td>
+				  </tr>					 
+				</table>
+				<div class="page">page</div>
+			</div>
+			<%-- 群成员列表 end --%>
+		</div>
+		<div class="group_side">
+			<div class="notice_detail">
+				<div class="tit"><i class="notice_icon"></i>群公告</div>
+				<div class="detail">
+				一件好东西总要丢三回。第一回不珍惜随
+				处扔，结果找不到了；第二回认真收藏，
+				藏深了，怎么也想不起藏哪儿了；第三回
+				时间久了，它和你如影随形，你却对它视
+				而不见了。
+				</div>
+			</div>
+      	
+        	<%--群推荐主题 start --%>
+        	<dl class="recommend_theme">
+        		<dt>本群推荐主题</dt>
+        		<dd><a href="#" title="相信你，相信到怀疑自己">相信你，相信到怀疑自己</a></dd>
+				<dd><a href="#" title="我们都过好彼此的生活吧。">我们都过好彼此的生活吧。</a></dd>
+				<dd><a href="#" title="认为我百毒不侵吗认为我坚强无比吗认为我...">认为我百毒不侵吗认为我坚强无比吗认为我...</a></dd>
+				<dd><a href="#" title="来我的长街，做我的归人。">来我的长街，做我的归人。</a></dd>
+				<dd><a href="#" title="找个没人的地方记录我的小心情">找个没人的地方记录我的小心情</a></dd>
+        	</dl>
+        	<%--群推荐主题 end --%>
+        	
+        	<%--群成员 start --%>
+        	<div class="member_con">
+        		<div class="tit">
+        			<h4>群成员</h4>
+        			<a class="check_all" href="#" title="查看全部">查看全部</a>
+        		</div>
+       			<ul class="menber_items">
+					<li>
+						<div class="vkouser_avatar">
+							<a href="#" title="王海波" target="_blank">
+								<img src="http://static.vko.cn/vko/images/pic/vkouser_middle.jpg" width="50" height="50" alt="王海波">
+								<i class="vkouser_mask"></i>
+							</a>
+						</div>
+						<div class="vkouser_name"><a href="#" title="王海波" target="_blank">王海波</a></div>
+		            	<div class="vkouser_role red">班主任</div>
+					</li>
+					<li>
+						<div class="vkouser_avatar">
+							<a href="#" title="王海波" target="_blank">
+								<img src="http://static.vko.cn/vko/images/pic/vkouser_middle.jpg" width="50" height="50" alt="王海波">
+								<i class="vkouser_mask"></i>
+							</a>
+						</div>
+						<div class="vkouser_name"><a href="#" title="王海波" target="_blank">王海波</a></div>
+		            	<div class="vkouser_role orange">数学老师</div>
+					</li>
+					<li>
+						<div class="vkouser_avatar">
+							<a href="#" title="王海波" target="_blank">
+								<img src="http://static.vko.cn/vko/images/pic/vkouser_middle.jpg" width="50" height="50" alt="王海波">
+								<i class="vkouser_mask"></i>
+							</a>
+						</div>
+						<div class="vkouser_name"><a href="#" title="王海波" target="_blank">王海波</a></div>
+		            	<div class="vkouser_role orange">语文老师</div>
+					</li>
+					<li>
+						<div class="vkouser_avatar">
+							<a href="#" title="王海波" target="_blank">
+								<img src="http://static.vko.cn/vko/images/pic/vkouser_middle.jpg" width="50" height="50" alt="王海波">
+								<i class="vkouser_mask"></i>
+							</a>
+						</div>
+						<div class="vkouser_name"><a href="#" title="王海波" target="_blank">王海波</a></div>
+		            	<div class="vkouser_role orange">化学老师</div>
+					</li>
+					<li>
+						<div class="vkouser_avatar">
+							<a href="#" title="王海波" target="_blank">
+								<img src="http://static.vko.cn/vko/images/pic/vkouser_middle.jpg" width="50" height="50" alt="王海波">
+								<i class="vkouser_mask"></i>
+							</a>
+						</div>
+						<div class="vkouser_name"><a href="#" title="王海波" target="_blank">王海波</a></div>
+		            	<div class="vkouser_role">成员</div>
+					</li>
+					<li>
+						<div class="vkouser_avatar">
+							<a href="#" title="王海波" target="_blank">
+								<img src="http://static.vko.cn/vko/images/pic/vkouser_middle.jpg" width="50" height="50" alt="王海波">
+								<i class="vkouser_mask"></i>
+							</a>
+						</div>
+						<div class="vkouser_name"><a href="#" title="王海波" target="_blank">王海波</a></div>
+		            	<div class="vkouser_role">成员</div>
+					</li>
+					<li>
+						<div class="vkouser_avatar">
+							<a href="#" title="王海波" target="_blank">
+								<img src="http://static.vko.cn/vko/images/pic/vkouser_middle.jpg" width="50" height="50" alt="王海波">
+								<i class="vkouser_mask"></i>
+							</a>
+						</div>
+						<div class="vkouser_name"><a href="#" title="王海波" target="_blank">王海波</a></div>
+		            	<div class="vkouser_role">成员</div>
+					</li>
+					<li>
+						<div class="vkouser_avatar">
+							<a href="#" title="王海波" target="_blank">
+								<img src="http://static.vko.cn/vko/images/pic/vkouser_middle.jpg" width="50" height="50" alt="王海波">
+								<i class="vkouser_mask"></i>
+							</a>
+						</div>
+						<div class="vkouser_name"><a href="#" title="王海波" target="_blank">王海波</a></div>
+		            	<div class="vkouser_role">成员</div>
+					</li>
+					<li>
+						<div class="vkouser_avatar">
+							<a href="#" title="王海波" target="_blank">
+								<img src="http://static.vko.cn/vko/images/pic/vkouser_middle.jpg" width="50" height="50" alt="王海波">
+								<i class="vkouser_mask"></i>
+							</a>
+						</div>
+						<div class="vkouser_name"><a href="#" title="王海波" target="_blank">王海波</a></div>
+		            	<div class="vkouser_role">成员</div>
+					</li>
+       			</ul>
+        	</div>
+        	<%--群成员 end --%>
+        	
+        	<%--类似群 start --%>
+        	<div class="group_similar">
+        		<div class="tit">
+        			<h4>类似群</h4>
+        			<a class="change" href="#" title="换一换"><i class="change_icon"></i>换一换</a>
+        		</div>
+        		<ul class="similar_imtems">
+        			<li>
+						<div class="vkogroup vkogroup_mini">
+				            <div class="vkogroup_avatar"><a href="#" title="星座运程独一无二" target="_blank"><img src="http://static.vko.cn/vko/images/other/avatar100.jpg" width="80" height="80" alt="星座运程独一无二"><i class="vkogroup_mask"></i></a></div>
+				            <div class="qInterest_icon"></div>
+				            <div class="group_name"><a href="#" title="吃货集中营">吃货集中营</a></div>
+				            <div class="group_master">创建人：<a href="#" title="吃货集中营">唐佳</a></div>
+							<div class="group_member">成  员：<a href="#" title="吃货集中营">58人</a></div>
+					 		<div class="group_post">话  题：<a href="#" title="吃货集中营">15487个</a></div>
+				        </div>
+				        <span class="joinBtn">加入</span>
+					</li>
+        			<li>
+						<div class="vkogroup vkogroup_mini">
+				            <div class="vkogroup_avatar"><a href="#" title="星座运程独一无二" target="_blank"><img src="http://static.vko.cn/vko/images/other/avatar100.jpg" width="80" height="80" alt="星座运程独一无二"><i class="vkogroup_mask"></i></a></div>
+				            <div class="qInterest_icon"></div>
+				            <div class="group_name"><a href="#" title="吃货集中营">吃货集中营</a></div>
+				            <div class="group_master">创建人：<a href="#" title="吃货集中营">唐佳</a></div>
+							<div class="group_member">成  员：<a href="#" title="吃货集中营">58人</a></div>
+					 		<div class="group_post">话  题：<a href="#" title="吃货集中营">15487个</a></div>
+				        </div>
+				        <span class="joinBtn">加入</span>
+					</li>
+        		</ul>
+        	</div>
+        	<%--类似群 end --%>
+        	
+		</div>
+		<%-- 主题内容 end --%>
+		
+	</div>
+	<div class="container clearfix">
+	<div class="bottom_relay">
+			<div class="reply_first_post">
+				<div class="tit">发表新话题</div>
+				<div class="reply_editor groupEditor">
+					<form onsubmit="return false" method="post" id="createForm">
+						<div class="topic">
+							<input type="text" placeholder="输入攻略标题" name="title">
+						</div>
+						<div class="content">
+							<textarea placeholder="正在加载编辑器，请稍等......" name="content" id="groupEditor"></textarea>
+							<input type="hidden" name="video">
+						</div>
+				        <div class="action">
+				        	<div class="addvideo">
+				        		<span class="addvideo_title"></span>
+				        		<a href="javascript:;" title="删除" class="addvideo_del">删除</a>
+				        	</div>
+							<input type="submit" value="提交" class="btn_gray01 submitbtn">
+		                </div>
+	                </form>
+				<div class="reply_tips">登录后才能发布回复，请先<a title="登录" href="javascript:;" class="loginbtn">登录</a></div></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+seajs.use('vkoweb/js/web/safety/changemail');	//修改为所需js文件路径
+</script>
+${httpInclude.include("/WEB-INF/share/footer_v6.jsp")}

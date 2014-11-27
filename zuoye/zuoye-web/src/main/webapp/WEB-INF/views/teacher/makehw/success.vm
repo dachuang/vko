@@ -1,0 +1,23 @@
+${httpInclude.include("/WEB-INF/share/head_v6.jsp")}
+<script type="text/javascript">
+vkoFileLoader.load('/vko/css/pay/pay.css');	//修改为所需css文件路径
+vkoFileLoader.load('/vko/css/homework/fafuxb.css');
+</script>
+<div id="wrap">
+	<div class="container clearfix">
+		<div class="successTips">
+			<i class="successIcon">成功</i>
+			<h4>作业发布成功！</h4>
+			<div class="line font12">作业名称：<a  title="${name}">${name}</a></div>
+			<div class="line font12">起止时间：${startTime}  至  ${endTime}  </div>
+			<div class="line bold font16">您发布的作业将通过站内通知、短信形式通知到您的学生，
+在作业时间截止时，将通过短信通知您阅作业</div>
+			<a class="btn_large_blue03 jumpBtn" href="http://www.vko.cn/teacher/myhomework.html" title="返回作业管理" timeLong="5">返回作业管理</a>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+seajs.use('vkoweb/js/web/homework/success');
+</script>
+${httpInclude.include("/WEB-INF/share/footer_v6.jsp")}
