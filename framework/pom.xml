@@ -1,0 +1,582 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.vko</groupId>
+	<artifactId>vko-framework</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>vko-framework</name>
+	<url>http://maven.apache.org</url>
+
+
+	<modules>
+		<module>vko-framework-core-parent</module>
+	</modules>
+
+	<properties>
+		<aopalliance.version>1.0</aopalliance.version>
+		<aspectjweaver.version>1.5.3</aspectjweaver.version>
+		<springframework.version>3.1.2.RELEASE</springframework.version>
+		<hibernate.core.version>3.3.2.GA</hibernate.core.version>
+		<hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
+		<hibernate-commons-annotations.version>3.3.0.ga</hibernate-commons-annotations.version>
+		<jta.version>1.1</jta.version>
+		<antlr.version>2.7.6</antlr.version>
+		<persistence-api.version>1.0</persistence-api.version>
+		<servlet-api.version>2.4</servlet-api.version>
+		<jcl-over-slf4j.version>1.6.1</jcl-over-slf4j.version>
+		<commons-beanutils.version>1.7.0</commons-beanutils.version>
+		<oscache.version>2.3</oscache.version>
+		<commons-lang.version>2.4</commons-lang.version>
+		<commons-collections.version>3.2.1</commons-collections.version>
+		<commons-logging.version>1.1</commons-logging.version>
+		<dom4j.version>1.6.1</dom4j.version>
+		<junit.version>4.7</junit.version>
+		<slf4j.version>1.6.1</slf4j.version>
+		<log4j.version>1.2.14</log4j.version>
+		<gson.version>1.7.1</gson.version>
+		<joda-time.version>1.6</joda-time.version>
+		<cos.version>1.0.0</cos.version>
+		<jsoup.version>1.6.1</jsoup.version>
+		<oauth.version>20100601</oauth.version>
+		<paoding-rose.version>1.0.1</paoding-rose.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- aspectj -->
+			<dependency>
+				<groupId>aspectj</groupId>
+				<artifactId>aspectjweaver</artifactId>
+				<version>${aspectjweaver.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>opensymphony</groupId>
+				<artifactId>oscache</artifactId>
+				<version>${oscache.version}</version>
+			</dependency>
+
+			<!-- spring -->
+			<dependency>
+				<groupId>aopalliance</groupId>
+				<artifactId>aopalliance</artifactId>
+				<version>${aopalliance.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>${springframework.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${springframework.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${springframework.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-tx</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+				<version>${springframework.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${springframework.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>aopalliance</groupId>
+						<artifactId>aopalliance</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
+				<version>${springframework.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>aopalliance</groupId>
+						<artifactId>aopalliance</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${springframework.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${springframework.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<!-- persistence layer -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate.core.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>antlr</groupId>
+						<artifactId>antlr</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>javax.transaction</groupId>
+						<artifactId>jta</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-api</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>commons-collections</groupId>
+						<artifactId>commons-collections</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>dom4j</groupId>
+						<artifactId>dom4j</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>jaxen</groupId>
+				<artifactId>jaxen</artifactId>
+				<version>1.1.6</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.4</version>
+			</dependency>
+			<dependency>
+				<groupId>antlr</groupId>
+				<artifactId>antlr</artifactId>
+				<version>${antlr.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.transaction</groupId>
+				<artifactId>jta</artifactId>
+				<version>${jta.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-annotations</artifactId>
+				<version>${hibernate.annotations.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.hibernate</groupId>
+						<artifactId>hibernate</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-commons-annotations</artifactId>
+				<version>${hibernate-commons-annotations.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.hibernate</groupId>
+						<artifactId>hibernate</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.persistence</groupId>
+				<artifactId>persistence-api</artifactId>
+				<version>${persistence-api.version}</version>
+			</dependency>
+
+			<!-- 配置logback作为日志系统 <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-api</artifactId> <version>${slf4j-api.version}</version> 
+				</dependency> <dependency> <groupId>ch.qos.logback</groupId> <artifactId>logback-core</artifactId> <version>${logback-core.version}</version> 
+				</dependency> <dependency> <groupId>ch.qos.logback</groupId> <artifactId>logback-classic</artifactId> <version>${logback-classic.version}</version> 
+				</dependency> -->
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>1.0.13</version>
+			</dependency>
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>${log4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-nop</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<!-- common -->
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>${commons-logging.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+				<version>${commons-lang.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-collections</groupId>
+				<artifactId>commons-collections</artifactId>
+				<version>${commons-collections.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>1.3</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>1.1.37</version>
+			</dependency>
+			<dependency>
+				<groupId>ognl</groupId>
+				<artifactId>ognl</artifactId>
+				<version>3.0.8</version>
+			</dependency>
+			<!--gson -->
+			<dependency>
+				<groupId>com.google.gson</groupId>
+				<artifactId>google-gson</artifactId>
+				<version>${gson.version}</version>
+			</dependency>
+
+			<!-- 日期处理 -->
+			<dependency>
+				<groupId>joda-time</groupId>
+				<artifactId>joda-time</artifactId>
+				<version>${joda-time.version}</version>
+			</dependency>
+
+			<!-- xml -->
+			<dependency>
+				<groupId>dom4j</groupId>
+				<artifactId>dom4j</artifactId>
+				<version>${dom4j.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>xml-apis</groupId>
+						<artifactId>xml-apis</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>xml-apis</groupId>
+				<artifactId>xml-apis</artifactId>
+				<version>${xml-apis.version}</version>
+			</dependency>
+
+			<!-- servlet -->
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>${servlet-api.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<!-- junit test -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+
+			<!-- upload -->
+			<dependency>
+				<groupId>com.goothink.upload</groupId>
+				<artifactId>cos</artifactId>
+				<version>${cos.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.velocity</groupId>
+				<artifactId>velocity</artifactId>
+				<version>1.7</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.velocity</groupId>
+				<artifactId>velocity-tools</artifactId>
+				<version>2.0</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>dom4j</artifactId>
+						<groupId>dom4j</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>struts-core</artifactId>
+						<groupId>org.apache.struts</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>struts-tiles</artifactId>
+						<groupId>org.apache.struts</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>struts-taglib</artifactId>
+						<groupId>org.apache.struts</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<!-- jsoup HTML parser library @ http://jsoup.org/ -->
+				<groupId>org.jsoup</groupId>
+				<artifactId>jsoup</artifactId>
+				<version>${jsoup.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.caucho</groupId>
+				<artifactId>hessian</artifactId>
+				<version>4.0.38</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.ehcache</groupId>
+				<artifactId>ehcache-core</artifactId>
+				<version>2.6.9</version>
+			</dependency>
+			<!-- oauth -->
+			<dependency>
+				<groupId>net.oauth.core</groupId>
+				<artifactId>oauth</artifactId>
+				<version>${oauth.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.jpountz.lz4</groupId>
+				<artifactId>lz4</artifactId>
+				<version>1.2.0</version>
+			</dependency>
+			<dependency>
+				<groupId>net.oauth.core</groupId>
+				<artifactId>oauth-consumer</artifactId>
+				<version>${oauth.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.esotericsoftware.reflectasm</groupId>
+				<artifactId>reflectasm</artifactId>
+				<version>1.07</version>
+			</dependency>
+			<!-- paoding rose -->
+			<dependency>
+				<groupId>com.renren</groupId>
+				<artifactId>paoding-rose</artifactId>
+				<version>${paoding-rose.version}</version>
+			</dependency>
+
+			<!-- mybatis -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>3.2.2</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-spring</artifactId>
+				<version>1.2.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.vko</groupId>
+				<artifactId>vko-framework-core-web</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>cn.vko</groupId>
+				<artifactId>vko-framework-cache</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<!-- weetui_addb -->
+				<weetui.jdbc.driver>com.mysql.jdbc.Driver</weetui.jdbc.driver>
+				<weetui.jdbc.url>jdbc:mysql://115.29.143.10:3306/weetui?useUnicode=true&amp;characterEncoding=utf8</weetui.jdbc.url>
+				<weetui.jdbc.username>devuser</weetui.jdbc.username>
+				<weetui.jdbc.password>123456</weetui.jdbc.password>
+
+				<!-- weetui_env -->
+				<weetui.resource.file.url>http\://weetui.qintime.com</weetui.resource.file.url>
+				<weetui.server.site.url>http\://weetui.qintime.com</weetui.server.site.url>
+
+				<!-- weetui_logger -->
+				<logger.level>info</logger.level>
+				<logger.file>E:/log</logger.file>
+
+				<!-- weetui_administrator -->
+				<weetui.administrator.username>admin</weetui.administrator.username>
+				<weetui.administrator.password>weetuipwd</weetui.administrator.password>
+			</properties>
+			<!-- svn <build> <plugins> <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>buildnumber-maven-plugin</artifactId> 
+				<version>1.0</version> <executions> <execution> <phase>validate</phase> <goals> <goal>create</goal> </goals> </execution> 
+				</executions> <configuration> <doCheck>false</doCheck> <doUpdate>false</doUpdate> </configuration> </plugin> </plugins> </build> -->
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<!-- ${project.name}_addb -->
+				<weetui.jdbc.driver>com.mysql.jdbc.Driver</weetui.jdbc.driver>
+				<weetui.jdbc.url>jdbc:mysql://115.29.143.10:3306/weetui?useUnicode=true&amp;characterEncoding=utf8</weetui.jdbc.url>
+				<weetui.jdbc.username>devuser</weetui.jdbc.username>
+				<weetui.jdbc.password>123456</weetui.jdbc.password>
+
+				<!-- weetui_env -->
+				<weetui.resource.file.url>http\://image.weetui.test</weetui.resource.file.url>
+				<weetui.server.site.url>http\://www.weetui.test</weetui.server.site.url>
+
+				<!-- weetui_logger -->
+				<logger.level>DEBUG</logger.level>
+				<logger.file>/goothink/logs/weetui.log</logger.file>
+
+				<!-- weetui_administrator -->
+				<weetui.administrator.username>admin</weetui.administrator.username>
+				<weetui.administrator.password>weetuipwd</weetui.administrator.password>
+			</properties>
+			<activation>
+			</activation>
+		</profile>
+		<profile>
+			<id>product</id>
+			<properties>
+				<!-- weetui_addb -->
+				<weetui.jdbc.driver>com.mysql.jdbc.Driver</weetui.jdbc.driver>
+				<weetui.jdbc.url>jdbc:mysql://115.29.143.10:3306/weetui?useUnicode=true&amp;characterEncoding=utf8</weetui.jdbc.url>
+				<weetui.jdbc.username>devuser</weetui.jdbc.username>
+				<weetui.jdbc.password>123456</weetui.jdbc.password>
+
+				<!-- weetui_env -->
+				<weetui.resource.file.url>http\://image.weetui.com</weetui.resource.file.url>
+				<weetui.server.site.url>http\://www.weetui.com</weetui.server.site.url>
+
+				<!-- weetui_logger -->
+				<logger.level>ERROR</logger.level>
+				<logger.file>/goothink/logs/weetui.log</logger.file>
+
+				<!-- weetui_administrator -->
+				<weetui.administrator.username>admin</weetui.administrator.username>
+				<weetui.administrator.password>weetuipwd</weetui.administrator.password>
+			</properties>
+
+			<activation>
+			</activation>
+		</profile>
+	</profiles>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<configuration>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<name>Internal Releases</name>
+			<url>http://192.168.1.5:8081/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>Nexus Snapshot Repository</name>
+			<url>http://192.168.1.5:8081/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+</project>
