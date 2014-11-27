@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="2" passed="2">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="33" started-at="2014-03-03T15:02:53Z" finished-at="2014-03-03T15:02:53Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="33" started-at="2014-03-03T15:02:53Z" finished-at="2014-03-03T15:02:53Z">
+      <class name="cn.vko.common.util.TestCollectionUtil">
+        <test-method status="PASS" signature="testList()[pri:0, instance:cn.vko.common.util.TestCollectionUtil@b82368]" name="testList" duration-ms="18" started-at="2014-03-03T15:02:53Z" finished-at="2014-03-03T15:02:53Z">
+        </test-method> <!-- testList -->
+        <test-method status="PASS" signature="testSubList()[pri:0, instance:cn.vko.common.util.TestCollectionUtil@b82368]" name="testSubList" duration-ms="2" started-at="2014-03-03T15:02:53Z" finished-at="2014-03-03T15:02:53Z">
+        </test-method> <!-- testSubList -->
+      </class> <!-- cn.vko.common.util.TestCollectionUtil -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
