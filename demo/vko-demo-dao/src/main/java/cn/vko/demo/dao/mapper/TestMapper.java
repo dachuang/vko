@@ -28,5 +28,7 @@ public interface TestMapper {
 
 	public void insertTestList(List<Test> record);
 
+	
+	
 	public void insert(Test test);
 }
