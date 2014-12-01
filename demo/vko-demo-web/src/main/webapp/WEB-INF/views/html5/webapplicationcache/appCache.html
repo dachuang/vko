@@ -1,0 +1,42 @@
+<! DOCTYPE html>
+<html manifest="application.manifest">
+	<head>
+		<meta charset='utf-8'>
+		<title>HTML5 Application Cache Test</title>
+		<script type="text/javascript">
+			// 加载
+			function load(){
+				// 浏览器支持性检查
+				if(window.applicationCache){
+					// 浏览器支持离线应用
+					document.getElementById('support').innerHTML="HTML5 Application Cache is supported in your  browser.";
+				}
+				
+				// 页面加载的时候，设置状态为online或offline
+				if(window.navigator.onLine){
+					log("Online");
+				} else {
+					log("Offline");
+				}
+			}
+			
+			function log(msg){
+				console.log(msg);
+			}
+			
+			window.addEventListener("online", function (e){
+				log("Online");
+			},true);
+			
+			window.addEventListener("offline", function(e){
+				log("Offline");
+			},true);
+			window.addEventListener("load", load, true);
+		</script>
+	</head>
+	<body>
+		<h1>HTML5 Application Cache</h1>
+		<p id="support">HTML5 Application Cache is <strong>not</strong> supported in your  browser.</p>
+		
+	</body>
+</html>

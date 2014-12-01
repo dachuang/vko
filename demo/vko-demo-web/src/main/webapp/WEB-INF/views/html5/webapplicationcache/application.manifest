@@ -1,0 +1,21 @@
+CACHE MANIFEST
+#需要缓存的文件
+
+#html
+#js
+example.js
+#css
+example.css
+#images
+example.gif
+
+
+#不缓存的文件
+NETWORK
+signup.thml
+
+
+#部分提供了获取不到缓存资源是的备选资源路径
+FALLBACK
+signup.html offline.html
+/app/ajax/  default.html
