@@ -9,7 +9,7 @@ package cn.vko.demo.service;
 /**
  * TODO(这里用一句话描述这个类的作用)
  * <p>
- * TODO(这里描述这个类补充说明 – 可选)
+ * Servie服务层
  * @author   ychuang328
  * @Date	 2014-8-2 	 
  */
