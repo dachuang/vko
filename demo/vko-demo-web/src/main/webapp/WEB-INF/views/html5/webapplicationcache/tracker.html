@@ -1,0 +1,68 @@
+<! DOCTYPE html>
+<html manifest="application.manifest">
+	<head>
+		<meta charset='utf-8'>
+		<title>HTML5 Offlinie Application</title>
+		<script type="text/javascript" src="log.js"></script>
+		<script type="text/javascript" src="offline.js"></script>
+		<script type="text/javascript" src="tracker.js"></script>
+		<link rel="stylesheet" href="html5.css">
+		<script type="text/javascript">
+			// 定位并报告当前位置
+			var handlePositionUpdate = function(e){
+				var latitude = e.coords.latitude;
+				var longitude = e.coords.longitude;
+				log("Position update:", latitude, longitude);
+				if(navigator.onLine){
+					updateLocation(latitude, longitude);
+				}
+				storeLocation(latitude, longitude);
+			}
+			
+			var handlePositionError = function(e){
+				log("Position Error");
+			}
+			
+			var uploadLocatins = function(latitude, longitude){
+				var request = new XMLHttpRequest();
+				request.open("POST", "http://geodata.example.net:800/geoupload", true);
+				request.send(localStorage.locations);
+			}
+			
+			var geolocationConfig = {"maximumAge":2000};
+			
+			navigator.geolocation.watchPosition(handlePositionUpdate, handlePositionError, geolocationConfig);
+			
+			var storeLoaction = function(latitude, longitude){
+				// 加载localStorage的位置列表
+				var locations = JSON.parse(localStorage.locations || "[]");
+				
+				// 添加位置数据
+				locations.push({"latitude":latitude, "longitude":longitude});
+				
+				// 保存新的位置列表
+				localStorage.locations = JSON.stringify(locations);
+			}
+			
+			// 离线应用程序每次页面加载的时候都会检测与服务器的连接情况
+			// 如果浏览器在线，与服务器同步
+			if(navigator.onLine){
+				uploadLocaitons();
+			}
+			
+		</script>
+	</head>
+	<body>
+		<header>
+			<h1>Offline Example</h1>
+		</header>
+		
+		<section>
+			<article>
+				<button id="installButton">Check for Updates</button>
+				<h3>Log</h3>
+				<div id="inifo"></div>
+			</article>
+		</section>
+	</body>
+</html>

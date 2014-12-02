@@ -1,0 +1,9 @@
+#需要缓存的文件
+
+#js
+./offline.js
+./log.js
+#css
+./html5.css
+
+#images
